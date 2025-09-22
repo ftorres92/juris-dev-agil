@@ -15,7 +15,7 @@ ID,Épico/Tema,História de Usuário,Critérios de Aceite,Prioridade MoSCoW,Esti
 Guia para os Times
 
 Épicos = grandes áreas (ex.: Infraestrutura, Integração DJEN, Agentes Especializados, Interfaces).
-Histórias de Usuário = sempre no formato "Como [perfil], quero [ação], para que [benefício]".
+Histórias de Usuário = sempre no formato Como [perfil], quero [ação], para que [benefício].
 Critérios de Aceite = definem quando a história está concluída.
 Prioridade MoSCoW = MUST HAVE (crítico), SHOULD HAVE (importante), COULD HAVE (desejável), WON'T HAVE (não implementar).
 Estimativa = pode ser feita com Planning Poker.
