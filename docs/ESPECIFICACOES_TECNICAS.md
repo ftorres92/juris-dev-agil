@@ -1,4 +1,4 @@
-# 🔧 Especificações Técnicas - Pesquisador de Jurisprudência DJEN
+# 🤖 Especificações Técnicas - Agentes para Análise de Jurisprudência Estratégica
 
 ## 🏗️ **Arquitetura Técnica**
 

@@ -1,4 +1,4 @@
-# 🎯 PBB - Problema, Personas, Expectativas e Features
+# 🤖 PBB - Agentes para Análise de Jurisprudência Estratégica
 
 ## 🔴 **PROBLEMA**
 

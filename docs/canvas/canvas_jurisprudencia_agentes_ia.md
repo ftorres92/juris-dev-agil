@@ -1,6 +1,6 @@
-# 🏛️ AI Project Canvas - Sistema de Análise de Jurisprudência Estratégica
+# 🤖 AI Project Canvas - Agentes para Análise de Jurisprudência Estratégica
 
-**Title:** Sistema Inteligente de Análise de Jurisprudência Estratégica com Agentes de IA
+**Title:** Agentes de IA Especializados para Análise de Jurisprudência com DJEN
 
 ---
 

@@ -1,12 +1,12 @@
-# 🏛️ Juris Dev Ágil - Sistema de Análise de Jurisprudência Estratégica
+# 🤖 Agentes para Análise de Jurisprudência Estratégica
 
 [![Python](https://img.shields.io/badge/Python-3.13+-blue.svg)](https://python.org)
 [![Django](https://img.shields.io/badge/Django-4.x-green.svg)](https://djangoproject.com)
 [![License](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
-> **Sistema Inteligente de Análise de Jurisprudência Estratégica com Agentes de IA**
+> **Agentes de IA Especializados para Análise de Jurisprudência com DJEN**
 
-Um projeto revolucionário que resolve o problema real da **pesquisa de jurisprudência mista**, oferecendo 4 cenários estratégicos inéditos no mercado jurídico brasileiro.
+Sistema de agentes inteligentes que resolve o problema real da **pesquisa de jurisprudência mista**, oferecendo 4 cenários estratégicos inéditos no mercado jurídico brasileiro através de agentes especializados em análise jurídica.
 
 ## 🎯 **Problema Resolvido**
 

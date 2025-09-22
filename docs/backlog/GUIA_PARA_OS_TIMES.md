@@ -1,4 +1,4 @@
-# 📋 Guia para os Times - Sistema de Análise de Jurisprudência Estratégica
+# 🤖 Guia para os Times - Agentes para Análise de Jurisprudência Estratégica
 
 ## 🎯 **Definições dos Termos do Product Backlog**
 

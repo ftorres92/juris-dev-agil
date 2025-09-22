@@ -1,4 +1,4 @@
-# 📋 Metodologia MoSCoW - Product Backlog
+# 🤖 Metodologia MoSCoW - Agentes para Análise de Jurisprudência Estratégica
 
 ## 🎯 **Definição da Metodologia MoSCoW**
 
