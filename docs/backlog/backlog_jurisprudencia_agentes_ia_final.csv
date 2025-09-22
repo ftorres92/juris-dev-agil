@@ -1,69 +1,16 @@
 ID,Épico/Tema,História de Usuário,Critérios de Aceite,Prioridade MoSCoW,Estimativa,Sprint,Observações
-1,Infraestrutura Base,"Como desenvolvedor, quero ter a estrutura base do sistema de agentes para começar o desenvolvimento","- Estrutura Django 4.x configurada
-- Modelos Django para agentes (AnaliseJurisprudenciaTese, etc.)
-- CrewAI ou Google AI SDK configurado
-- ContextManager para gestão de tokens implementado
-- PostgreSQL + Redis configurados
-- Configuração Gemini + OpenAI fallback",MUST HAVE,5,Sprint 3,Base crítica para todos os desenvolvimentos
-2,Integração DJEN,"Como sistema, quero coletar dados do DJEN de forma eficiente para processamento","- Cliente DJEN com uso polite (60 req/min)
-- Cache Redis 24h para evitar soft ban
-- Backoff exponencial para rate limits
-- Chunking automático para grandes volumes
-- Logs detalhados de uso e performance
-- Fallback strategy implementada",MUST HAVE,8,Sprint 3,Fonte de dados principal do sistema
-3,Modelos de Dados,"Como desenvolvedor, quero ter os modelos de dados estruturados para armazenar análises","- AnaliseJurisprudenciaTese model criado
-- AnaliseJurisprudenciaNeutra model criado
-- PadroesVaraTribunal model criado
-- EstrategiaAntecipatoria model criado
-- Migrações e índices otimizados",MUST HAVE,5,Sprint 3,Base de dados para todas as análises
-4,Agente Classificador Tese,"Como advogado, quero encontrar apenas julgados que corroborem minha tese específica","- AgenteClassificadorTese com Gemini 2.5
-- Chunking inteligente para evitar estouro de contexto
-- Score de favorabilidade (0-100%) com explicação
-- Identificação de precedentes fortes (STJ, STF)
-- Fallback para OpenAI em caso de falha
-- Processamento em batches de 50-100 julgados",MUST HAVE,13,Sprint 3,MVP - Funcionalidade principal do sistema
-5,Interface Busca Favorável,"Como usuário, quero uma interface intuitiva para buscar jurisprudência favorável à minha tese","- Formulário de pesquisa com campos específicos
-- Lista de julgados favoráveis com filtros
-- Score de favorabilidade visível
-- Detalhes do julgado com explicação
-- Export para PDF/DOCX",MUST HAVE,8,Sprint 3,UX crítica para adoção
-6,Testes Classificação,"Como desenvolvedor, quero garantir que o sistema de classificação funcione corretamente","- Testes unitários do AgenteClassificadorTese
-- Testes de integração com DJEN (rate limiting)
-- Validação de precisão com dataset real
-- Testes de chunking e gestão de contexto
-- Testes de fallback Gemini → OpenAI
-- Testes de performance (< 3 minutos)",MUST HAVE,5,Sprint 3,Qualidade e confiabilidade
-7,Agente Analisador Neutro,"Como advogado estratégico, quero entender a jurisprudência real sobre um tema sem viés","- AgenteAnalisadorNeutro com Gemini 2.5
-- Processamento em batches para grandes volumes
-- Identificação de argumentos pró e contra
-- Cálculo de tendência geral (favorável/contrária/neutra)
-- Relatório objetivo sem viés
-- Gestão de contexto para múltiplos julgados",SHOULD HAVE,13,Sprint 4,Análise objetiva da jurisprudência
-8,Dashboard Análise Neutra,"Como usuário, quero visualizar a análise neutra da jurisprudência de forma clara","- Dashboard com gráficos de tendência
-- Visualização de argumentos pró e contra
-- Timeline de evolução da jurisprudência
-- Filtros por tribunal, período, tema
-- Export de relatório em PDF",SHOULD HAVE,8,Sprint 4,Visualização de insights
-9,Agente Analisador Vara,"Como advogado experiente, quero analisar padrões de julgamento de uma vara específica","- AgenteAnalisadorVara implementado
-- Algoritmo de identificação de padrões por tema
-- Geração de perfil do julgador
-- Cálculo de tendência geral da vara
-- Relatório: 'Sobre o tema X, essa vara decide da seguinte forma...'",SHOULD HAVE,13,Sprint 5,Análise de padrões por órgão
-10,Interface Padrões Vara,"Como usuário, quero visualizar os padrões de julgamento de uma vara específica","- Interface de seleção de vara/tribunal
-- Visualização de padrões por tema
-- Gráficos de tendência da vara
-- Comparação entre varas
-- Export de relatório personalizado",SHOULD HAVE,8,Sprint 5,Visualização de padrões
-11,Agente Estratégico Antecipatório,"Como advogado estratégico, quero antecipar como uma vara específica julgará meu caso","- AgenteEstrategicoAntecipatorio implementado
-- Algoritmo de probabilidade de sucesso
-- Identificação de riscos específicos da vara
-- Geração de estratégia personalizada
-- Sugestão de argumentos direcionados",COULD HAVE,13,Sprint 6,Predição estratégica
-12,Interface Estratégia Antecipatória,"Como usuário, quero visualizar a estratégia antecipatória para meu caso específico","- Interface de upload do caso
-- Visualização de probabilidade de sucesso
-- Lista de riscos identificados
-- Estratégia personalizada detalhada
-- Argumentos direcionados para a vara",COULD HAVE,8,Sprint 6,Visualização de estratégia
+1,Infraestrutura Base,"Como desenvolvedor, quero ter a estrutura base do sistema de agentes para começar o desenvolvimento","- Estrutura Django 4.x configurada - Modelos Django para agentes (AnaliseJurisprudenciaTese, etc.) - CrewAI ou Google AI SDK configurado - ContextManager para gestão de tokens implementado - PostgreSQL + Redis configurados - Configuração Gemini + OpenAI fallback",MUST HAVE,5,Sprint 3,Base crítica para todos os desenvolvimentos
+2,Integração DJEN,"Como sistema, quero coletar dados do DJEN de forma eficiente para processamento","- Cliente DJEN com uso polite (60 req/min) - Cache Redis 24h para evitar soft ban - Backoff exponencial para rate limits - Chunking automático para grandes volumes - Logs detalhados de uso e performance - Fallback strategy implementada",MUST HAVE,8,Sprint 3,Fonte de dados principal do sistema
+3,Modelos de Dados,"Como desenvolvedor, quero ter os modelos de dados estruturados para armazenar análises","- AnaliseJurisprudenciaTese model criado - AnaliseJurisprudenciaNeutra model criado - PadroesVaraTribunal model criado - EstrategiaAntecipatoria model criado - Migrações e índices otimizados",MUST HAVE,5,Sprint 3,Base de dados para todas as análises
+4,Agente Classificador Tese,"Como advogado, quero encontrar apenas julgados que corroborem minha tese específica","- AgenteClassificadorTese com Gemini 2.5 - Chunking inteligente para evitar estouro de contexto - Score de favorabilidade (0-100%) com explicação - Identificação de precedentes fortes (STJ, STF) - Fallback para OpenAI em caso de falha - Processamento em batches de 50-100 julgados",MUST HAVE,13,Sprint 3,MVP - Funcionalidade principal do sistema
+5,Interface Busca Favorável,"Como usuário, quero uma interface intuitiva para buscar jurisprudência favorável à minha tese","- Formulário de pesquisa com campos específicos - Lista de julgados favoráveis com filtros - Score de favorabilidade visível - Detalhes do julgado com explicação - Export para PDF/DOCX",MUST HAVE,8,Sprint 3,UX crítica para adoção
+6,Testes Classificação,"Como desenvolvedor, quero garantir que o sistema de classificação funcione corretamente","- Testes unitários do AgenteClassificadorTese - Testes de integração com DJEN (rate limiting) - Validação de precisão com dataset real - Testes de chunking e gestão de contexto - Testes de fallback Gemini → OpenAI - Testes de performance (< 3 minutos)",MUST HAVE,5,Sprint 3,Qualidade e confiabilidade
+7,Agente Analisador Neutro,"Como advogado estratégico, quero entender a jurisprudência real sobre um tema sem viés","- AgenteAnalisadorNeutro com Gemini 2.5 - Processamento em batches para grandes volumes - Identificação de argumentos pró e contra - Cálculo de tendência geral (favorável/contrária/neutra) - Relatório objetivo sem viés - Gestão de contexto para múltiplos julgados",SHOULD HAVE,13,Sprint 4,Análise objetiva da jurisprudência
+8,Dashboard Análise Neutra,"Como usuário, quero visualizar a análise neutra da jurisprudência de forma clara","- Dashboard com gráficos de tendência - Visualização de argumentos pró e contra - Timeline de evolução da jurisprudência - Filtros por tribunal, período, tema - Export de relatório em PDF",SHOULD HAVE,8,Sprint 4,Visualização de insights
+9,Agente Analisador Vara,"Como advogado experiente, quero analisar padrões de julgamento de uma vara específica","- AgenteAnalisadorVara implementado - Algoritmo de identificação de padrões por tema - Geração de perfil do julgador - Cálculo de tendência geral da vara - Relatório: 'Sobre o tema X, essa vara decide da seguinte forma...'",SHOULD HAVE,13,Sprint 5,Análise de padrões por órgão
+10,Interface Padrões Vara,"Como usuário, quero visualizar os padrões de julgamento de uma vara específica","- Interface de seleção de vara/tribunal - Visualização de padrões por tema - Gráficos de tendência da vara - Comparação entre varas - Export de relatório personalizado",SHOULD HAVE,8,Sprint 5,Visualização de padrões
+11,Agente Estratégico Antecipatório,"Como advogado estratégico, quero antecipar como uma vara específica julgará meu caso","- AgenteEstrategicoAntecipatorio implementado - Algoritmo de probabilidade de sucesso - Identificação de riscos específicos da vara - Geração de estratégia personalizada - Sugestão de argumentos direcionados",COULD HAVE,13,Sprint 6,Predição estratégica
+12,Interface Estratégia Antecipatória,"Como usuário, quero visualizar a estratégia antecipatória para meu caso específico","- Interface de upload do caso - Visualização de probabilidade de sucesso - Lista de riscos identificados - Estratégia personalizada detalhada - Argumentos direcionados para a vara",COULD HAVE,8,Sprint 6,Visualização de estratégia
 
 Guia para os Times
 
