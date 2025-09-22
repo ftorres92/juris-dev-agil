@@ -32,22 +32,26 @@
 *Which skills do you need for development?*
 
 ### Core Técnico:
-- **Backend**: Django 4.x, PostgreSQL, Celery/Redis
-- **AI/LLM**: Google Gemini 2.5, OpenAI (fallback)
-- **Integrações**: APIs DJEN, sistema existente JuristIA
+- **Framework**: Django 4.x como framework principal
+- **Database**: PostgreSQL para persistência, Redis para cache
+- **Agentes**: CrewAI ou Google AI SDK para orquestração de agentes
+- **LLM Principal**: Google Gemini 2.5
+- **LLM Fallback**: OpenAI GPT-4 (backup)
+- **Integração**: DJEN (gratuito) com uso polite (60 req/min)
 
 ### IA Jurídica Especializada:
-- **Agentes de Classificação**: Algoritmos para classificar favorabilidade à tese
-- **Agentes de Análise Neutra**: Algoritmos para análise objetiva sem viés
-- **Agentes de Padrões**: ML para identificar padrões por vara/tribunal
-- **Agentes Preditivos**: Algoritmos para predição de resultados
-- **NLP Jurídico**: Processamento de linguagem natural específico para direito
+- **AgenteClassificadorTese**: Classifica julgados favoráveis/desfavoráveis à tese
+- **AgenteAnalisadorNeutro**: Análise neutra da jurisprudência sem viés
+- **AgenteAnalisadorVara**: Identifica padrões por vara/tribunal específico
+- **AgenteEstrategicoAntecipatorio**: Predição de como vara julgará o caso
+- **ContextManager**: Gestão de tokens para evitar estouro de contexto
 
 ### DevOps e Performance:
-- **Observabilidade**: Prometheus + Grafana + Loki
-- **Containerização**: Docker Compose
-- **Segurança**: LGPD, auditoria, rate limiting
-- **Cache Inteligente**: Redis com TTL entre agentes
+- **Rate Limiting**: 60 req/min para DJEN (uso polite)
+- **Cache Inteligente**: Redis 24h para evitar soft ban
+- **Chunking**: Divisão de contexto em batches para evitar estouro de tokens
+- **Fallback Strategy**: Gemini → OpenAI em caso de falha
+- **Retry Logic**: Backoff exponencial para rate limits
 
 ### Produto:
 - **UX Jurídico**: Interfaces específicas para cada cenário
