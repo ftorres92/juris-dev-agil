@@ -1,32 +1,100 @@
-# Juris Dev Ágil
+# 🏛️ Juris Dev Ágil - Sistema de Análise de Jurisprudência Estratégica
 
-Um projeto Python para desenvolvimento ágil de soluções jurídicas.
+[![Python](https://img.shields.io/badge/Python-3.13+-blue.svg)](https://python.org)
+[![Django](https://img.shields.io/badge/Django-4.x-green.svg)](https://djangoproject.com)
+[![License](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
-## Descrição
+> **Sistema Inteligente de Análise de Jurisprudência Estratégica com Agentes de IA**
 
-Este projeto visa criar ferramentas e soluções para o desenvolvimento ágil de aplicações jurídicas, facilitando o trabalho de desenvolvedores e profissionais do direito.
+Um projeto revolucionário que resolve o problema real da **pesquisa de jurisprudência mista**, oferecendo 4 cenários estratégicos inéditos no mercado jurídico brasileiro.
 
-## Configuração do Ambiente
+## 🎯 **Problema Resolvido**
 
-### Pré-requisitos
+Atualmente, quando fazemos pesquisa de jurisprudência por **termos**, o sistema retorna **julgados mistos** - alguns favoráveis e outros **desfavoráveis à nossa tese**. Isso gera:
 
+- ⏰ **Perda de tempo**: Advogados precisam ler manualmente cada julgado
+- ❌ **Resultados mistos**: Pesquisa por termo não filtra por posicionamento  
+- 🤔 **Dúvidas estratégicas**: Não sabemos se a jurisprudência é favorável
+- 📊 **Falta de insights**: Não entendemos padrões de julgamento específicos
+
+## 🚀 **Solução: 4 Cenários Estratégicos**
+
+### 1. 🔍 **Busca de Jurisprudência Favorável à Nossa Tese**
+- **Objetivo**: Encontrar julgados que **corroborem nossa tese**
+- **Processo**: Pesquisa por termo + Agente classifica se é favorável/desfavorável
+- **Resultado**: Lista filtrada apenas com julgados favoráveis
+
+### 2. 📊 **Análise da Jurisprudência Real (Sem Viés)**
+- **Objetivo**: Entender a **jurisprudência real** sobre o tema
+- **Processo**: Busca ampla + Agente analisa tendência geral
+- **Resultado**: Entendimento majoritário sem forçar nossa tese
+
+### 3. 🏛️ **Estudo de Padrões por Vara/Tribunal**
+- **Objetivo**: Analisar como **órgãos específicos** julgam determinado tema
+- **Processo**: Busca por vara/tribunal + Análise de padrões
+- **Resultado**: "Sobre o tema X, essa vara decide da seguinte forma..."
+
+### 4. 🎯 **Análise Estratégica Antecipatória**
+- **Objetivo**: Antecipar como uma vara específica julgará nosso caso
+- **Processo**: Análise histórica da vara + Predição baseada em padrões
+- **Resultado**: Estratégia personalizada para cada órgão julgador
+
+## 🏗️ **Arquitetura Técnica**
+
+### **Sistema de Agentes Especializados**
+```
+ia/agentes/
+├── classificador_tese.py          # Agente Classificador por Tese
+├── analisador_neutro.py          # Agente Analisador Neutro  
+├── analisador_vara.py            # Agente Analisador por Vara
+├── estrategico_antecipatorio.py   # Agente Estratégico Antecipatório
+└── base_agent.py                 # Classe base para agentes
+```
+
+### **Pipeline de Processamento**
+```
+DJEN → Agentes Especializados → Análises Estratégicas → Dashboard → Usuário
+```
+
+## 📚 **Documentação Completa**
+
+### 📋 **Canvas do Projeto**
+- [Canvas de Análise de Jurisprudência](docs/canvas/canvas_jurisprudencia_agentes_ia.md)
+- Definição completa do projeto com dados, skills, stakeholders e métricas
+
+### 📊 **Backlog Detalhado**
+- [Backlog CSV](docs/backlog/backlog_jurisprudencia_agentes_ia.csv)
+- 20 histórias de usuário organizadas por sprint
+- Estimativas e dependências técnicas
+
+### 🎯 **Issue Técnica**
+- [Issue de Implementação](docs/issues/issue_jurisprudencia_agentes_ia.md)
+- Arquitetura detalhada e critérios de aceite
+- Plano de implementação por sprint
+
+## 🛠️ **Configuração do Ambiente**
+
+### **Pré-requisitos**
 - Python 3.13+
+- Django 4.x
+- PostgreSQL
+- Redis
 - pip
 
-### Instalação
+### **Instalação**
 
-1. Clone o repositório:
+1. **Clone o repositório:**
 ```bash
-git clone https://github.com/seu-usuario/juris-dev-agil.git
+git clone https://github.com/ftorres92/juris-dev-agil.git
 cd juris-dev-agil
 ```
 
-2. Crie um ambiente virtual:
+2. **Crie um ambiente virtual:**
 ```bash
 python -m venv venv
 ```
 
-3. Ative o ambiente virtual:
+3. **Ative o ambiente virtual:**
 ```bash
 # No macOS/Linux:
 source venv/bin/activate
@@ -35,16 +103,63 @@ source venv/bin/activate
 venv\Scripts\activate
 ```
 
-4. Instale as dependências:
+4. **Instale as dependências:**
 ```bash
 pip install -r requirements.txt
 ```
 
-## Uso
+5. **Configure o banco de dados:**
+```bash
+python manage.py migrate
+```
 
-[Adicione instruções de uso aqui conforme o projeto for desenvolvido]
+6. **Execute o servidor:**
+```bash
+python manage.py runserver
+```
 
-## Contribuição
+## 📈 **Métricas de Sucesso**
+
+### **Métricas Técnicas**
+- **Precisão de classificação**: > 90% na identificação favorável/desfavorável
+- **Tempo de processamento**: < 3 minutos para cada análise
+- **Disponibilidade**: > 99.5% para todos os agentes
+- **Cache hit ratio**: > 80% entre consultas similares
+
+### **Métricas de Negócio**
+- **Adoção**: > 80% dos usuários ativos
+- **Engagement**: > 10 consultas por usuário/mês
+- **Satisfação**: > 4.7/5 estrelas
+- **Revenue impact**: +25% em planos premium
+
+## 🎯 **Roadmap de Implementação**
+
+### **Sprint 3: Cenário 1 - Busca Favorável à Tese (MVP)**
+- AgenteClassificadorTese para classificar julgados
+- Interface básica para consulta de julgados favoráveis
+- Algoritmo de classificação favorável/desfavorável
+
+### **Sprint 4: Cenário 2 - Análise Neutra**
+- AgenteAnalisadorNeutro para análise objetiva
+- Dashboard para análise neutra
+- Identificação de argumentos pró e contra
+
+### **Sprint 5: Cenário 3 - Padrões por Vara**
+- AgenteAnalisadorVara para padrões específicos
+- Relatório: "Sobre o tema X, essa vara decide..."
+- Geração de perfil do julgador
+
+### **Sprint 6: Cenário 4 - Estratégia Antecipatória**
+- AgenteEstrategicoAntecipatorio para predições
+- Sistema de argumentos direcionados
+- Relatórios exportáveis em PDF/DOCX
+
+### **Sprint 7: Otimizações e Integração**
+- Performance optimization entre agentes
+- Cache inteligente Redis entre camadas
+- Integração com processos existentes
+
+## 🤝 **Contribuição**
 
 1. Faça um fork do projeto
 2. Crie uma branch para sua feature (`git checkout -b feature/AmazingFeature`)
@@ -52,10 +167,15 @@ pip install -r requirements.txt
 4. Push para a branch (`git push origin feature/AmazingFeature`)
 5. Abra um Pull Request
 
-## Licença
+## 📄 **Licença**
 
-Este projeto está sob a licença MIT. Veja o arquivo `LICENSE` para mais detalhes.
+Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para mais detalhes.
 
-## Contato
+## 📞 **Contato**
 
-[Adicione suas informações de contato aqui]
+- **GitHub**: [@ftorres92](https://github.com/ftorres92)
+- **Projeto**: [juris-dev-agil](https://github.com/ftorres92/juris-dev-agil)
+
+---
+
+**Este projeto representa uma oportunidade única de transformar o JuristIA no líder absoluto em análise jurídica inteligente no Brasil, resolvendo o problema real da pesquisa de jurisprudência mista e oferecendo 4 cenários estratégicos inéditos no mercado.**

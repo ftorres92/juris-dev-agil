@@ -143,3 +143,44 @@ dmypy.json
 .Trashes
 ehthumbs.db
 Thumbs.db
+
+# Django specific
+*.log
+local_settings.py
+db.sqlite3
+db.sqlite3-journal
+media/
+staticfiles/
+static/
+
+# AI/ML specific
+*.pkl
+*.joblib
+*.h5
+*.hdf5
+models/
+checkpoints/
+*.model
+*.weights
+
+# Jupyter Notebook
+.ipynb_checkpoints
+*.ipynb
+
+# Data files
+*.csv
+*.json
+*.xml
+data/
+datasets/
+
+# API keys and secrets
+.env
+.env.local
+.env.production
+secrets.json
+config.json
+
+# Documentation builds
+docs/_build/
+site/
