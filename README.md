@@ -63,6 +63,16 @@ ia/agentes/
 ├── analisador_vara.py            # Agente Analisador por Vara
 ├── estrategico_antecipatorio.py   # Agente Estratégico Antecipatório
 └── base_agent.py                 # Classe base para agentes
+
+ia/pipelines/
+├── djen_processor.py             # Pipeline de processamento DJEN
+└── agent_coordinator.py         # Coordenador entre agentes
+
+ia/models/
+├── analise_jurisprudencia_tese.py      # AnaliseJurisprudenciaTese
+├── analise_jurisprudencia_neutra.py   # AnaliseJurisprudenciaNeutra
+├── padroes_vara_tribunal.py            # PadroesVaraTribunal
+└── estrategia_antecipatoria.py        # EstrategiaAntecipatoria
 ```
 
 ### **Pipeline de Processamento**
@@ -75,6 +85,12 @@ DJEN → Agentes Especializados → Análises Estratégicas → Dashboard → Us
 ```
 juris-dev-agil/
 ├── documentacao/          # Documentação completa do projeto
+│   ├── canvas/           # Canvas do projeto
+│   └── backlog/          # Backlog e PBB
+├── ia/                   # Sistema de Agentes de IA
+│   ├── agentes/          # Agentes especializados
+│   ├── pipelines/        # Pipeline de processamento
+│   └── models/           # Modelos de dados
 ├── backend/              # Aplicação backend Django
 ├── frontend/             # Aplicação web React
 ├── app/                  # Aplicativo mobile React Native
@@ -89,13 +105,14 @@ juris-dev-agil/
 
 ### 📊 **Backlog Detalhado**
 - [Backlog CSV](documentacao/backlog/backlog_jurisprudencia_agentes_ia_final.csv)
-- 12 histórias de usuário organizadas por sprint com metodologia MoSCoW
+- 16 issues organizadas em 6 sprints (Sprint 1-6) com metodologia MoSCoW
 - Estimativas e dependências técnicas
+- [PBB Completo](documentacao/backlog/PBB_PROBLEMA_PERSONAS_EXPECTATIVAS_FEATURES.md)
 
-### 🎯 **Issue Técnica**
-- [Issue de Implementação](documentacao/issues/issue_jurisprudencia_agentes_ia.md)
-- Arquitetura detalhada e critérios de aceite
-- Plano de implementação por sprint
+### 🎯 **GitHub Project**
+- [GitHub Issues](https://github.com/ftorres92/juris-dev-agil/issues) - 16 issues organizadas
+- [GitHub Project](https://github.com/ftorres92/juris-dev-agil/projects) - Board de acompanhamento
+- [Guia para Times](documentacao/backlog/GUIA_PARA_OS_TIMES.md) - Instruções para desenvolvimento
 
 ## 🛠️ **Configuração do Ambiente**
 
@@ -159,30 +176,31 @@ python manage.py runserver
 
 ## 🎯 **Roadmap de Implementação**
 
-### **Sprint 3: Cenário 1 - Busca Favorável à Tese (MVP)**
+### **Sprint 1-2: Setup e Planejamento**
+- Configuração do ambiente de desenvolvimento
+- Definição de arquitetura e especificações
+- Planejamento detalhado dos agentes
+
+### **Sprint 3: MVP - Busca Favorável à Tese**
 - AgenteClassificadorTese para classificar julgados
 - Interface básica para consulta de julgados favoráveis
 - Algoritmo de classificação favorável/desfavorável
+- Integração DJEN e modelos de dados
 
-### **Sprint 4: Cenário 2 - Análise Neutra**
+### **Sprint 4: Análise Neutra**
 - AgenteAnalisadorNeutro para análise objetiva
 - Dashboard para análise neutra
 - Identificação de argumentos pró e contra
 
-### **Sprint 5: Cenário 3 - Padrões por Vara**
+### **Sprint 5: Padrões por Vara**
 - AgenteAnalisadorVara para padrões específicos
 - Relatório: "Sobre o tema X, essa vara decide..."
 - Geração de perfil do julgador
 
-### **Sprint 6: Cenário 4 - Estratégia Antecipatória**
+### **Sprint 6: Estratégia Antecipatória**
 - AgenteEstrategicoAntecipatorio para predições
 - Sistema de argumentos direcionados
 - Relatórios exportáveis em PDF/DOCX
-
-### **Sprint 7: Otimizações e Integração**
-- Performance optimization entre agentes
-- Cache inteligente Redis entre camadas
-- Integração com processos existentes
 
 ## 🤝 **Contribuição**
 
