@@ -168,11 +168,13 @@ checkpoints/
 *.ipynb
 
 # Data files
-*.csv
 *.json
 *.xml
 data/
 datasets/
+
+# Allow CSV files in docs/backlog/ directory
+!docs/backlog/*.csv
 
 # API keys and secrets
 .env
