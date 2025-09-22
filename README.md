@@ -10,7 +10,7 @@
 |------|--------|
 | Fernando Torres | [@ftorres92](https://github.com/ftorres92) |
 | Fernando Lobo | [@fernandolobo](https://github.com/fernandolobo) |
-| Marcio Ferreira | [@marcioferreira](https://github.com/marcioferreira) |
+| Marcio Ferreira | [@MarcioFerrer](https://github.com/MarcioFerrer) |
 | Elinton Camacho Piratello | [@elintonpiratello](https://github.com/elintonpiratello) |
 | Flavio Eustaquio de Oliveira | [@flavioeustaquio](https://github.com/flavioeustaquio) |
 | Heloiza de Oliveira Souza | [@heloizaoliveira](https://github.com/heloizaoliveira) |
