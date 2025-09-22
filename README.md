@@ -2,7 +2,7 @@
 
 [![Python](https://img.shields.io/badge/Python-3.13+-blue.svg)](https://python.org)
 [![Django](https://img.shields.io/badge/Django-4.x-green.svg)](https://djangoproject.com)
-[![License](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+
 
 ## 👥 **Equipe**
 
@@ -192,15 +192,10 @@ python manage.py runserver
 4. Push para a branch (`git push origin feature/AmazingFeature`)
 5. Abra um Pull Request
 
-## 📄 **Licença**
-
-Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para mais detalhes.
 
 ## 📞 **Contato**
 
 - **GitHub**: [@ftorres92](https://github.com/ftorres92)
 - **Projeto**: [juris-dev-agil](https://github.com/ftorres92/juris-dev-agil)
 
----
 
-**Este projeto representa uma oportunidade única de transformar o JuristIA no líder absoluto em análise jurídica inteligente no Brasil, resolvendo o problema real da pesquisa de jurisprudência mista e oferecendo 4 cenários estratégicos inéditos no mercado.**
