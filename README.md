@@ -63,8 +63,8 @@ DJEN → Agentes Especializados → Análises Estratégicas → Dashboard → Us
 - Definição completa do projeto com dados, skills, stakeholders e métricas
 
 ### 📊 **Backlog Detalhado**
-- [Backlog CSV](docs/backlog/backlog_jurisprudencia_agentes_ia.csv)
-- 20 histórias de usuário organizadas por sprint
+- [Backlog CSV](docs/backlog/backlog_jurisprudencia_agentes_ia_final.csv)
+- 12 histórias de usuário organizadas por sprint com metodologia MoSCoW
 - Estimativas e dependências técnicas
 
 ### 🎯 **Issue Técnica**
