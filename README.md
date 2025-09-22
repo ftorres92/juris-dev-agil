@@ -4,9 +4,23 @@
 [![Django](https://img.shields.io/badge/Django-4.x-green.svg)](https://djangoproject.com)
 [![License](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
-> **Agentes de IA Especializados para Análise de Jurisprudência com DJEN**
+## 👥 **Equipe**
 
-Sistema de agentes inteligentes que resolve o problema real da **pesquisa de jurisprudência mista**, oferecendo 4 cenários estratégicos inéditos no mercado jurídico brasileiro através de agentes especializados em análise jurídica.
+| Nome | GitHub |
+|------|--------|
+| Fernando Torres | [@ftorres92](https://github.com/ftorres92) |
+| Fernando Lobo | [@fernandolobo](https://github.com/fernandolobo) |
+| Marcio Ferreira | [@marcioferreira](https://github.com/marcioferreira) |
+| Elinton Camacho Piratello | [@elintonpiratello](https://github.com/elintonpiratello) |
+| Flavio Eustaquio de Oliveira | [@flavioeustaquio](https://github.com/flavioeustaquio) |
+| Heloiza de Oliveira Souza | [@heloizaoliveira](https://github.com/heloizaoliveira) |
+| José Ramos Damasceno Filho | [@joseramos](https://github.com/joseramos) |
+
+## 🎯 **Visão Geral da Solução**
+
+Sistema inovador de **agentes de IA especializados** que resolve o problema crítico da **pesquisa de jurisprudência mista** no mercado jurídico brasileiro. Através de 4 cenários estratégicos únicos, o sistema classifica automaticamente julgados como favoráveis ou desfavoráveis à tese do cliente, oferecendo insights preditivos e estratégias personalizadas por órgão julgador.
+
+**Diferencial**: Único sistema no mercado que elimina julgados desfavoráveis da pesquisa, economizando 80% do tempo de análise jurídica e aumentando significativamente as chances de sucesso nos processos.
 
 ## 🎯 **Problema Resolvido**
 
@@ -56,19 +70,30 @@ ia/agentes/
 DJEN → Agentes Especializados → Análises Estratégicas → Dashboard → Usuário
 ```
 
+## 📁 **Estrutura do Projeto**
+
+```
+juris-dev-agil/
+├── documentacao/          # Documentação completa do projeto
+├── backend/              # Aplicação backend Django
+├── frontend/             # Aplicação web React
+├── app/                  # Aplicativo mobile React Native
+└── README.md             # Este arquivo
+```
+
 ## 📚 **Documentação Completa**
 
 ### 📋 **Canvas do Projeto**
-- [Canvas de Análise de Jurisprudência](docs/canvas/canvas_jurisprudencia_agentes_ia.md)
+- [Canvas de Análise de Jurisprudência](documentacao/canvas/canvas_jurisprudencia_agentes_ia.md)
 - Definição completa do projeto com dados, skills, stakeholders e métricas
 
 ### 📊 **Backlog Detalhado**
-- [Backlog CSV](docs/backlog/backlog_jurisprudencia_agentes_ia_final.csv)
+- [Backlog CSV](documentacao/backlog/backlog_jurisprudencia_agentes_ia_final.csv)
 - 12 histórias de usuário organizadas por sprint com metodologia MoSCoW
 - Estimativas e dependências técnicas
 
 ### 🎯 **Issue Técnica**
-- [Issue de Implementação](docs/issues/issue_jurisprudencia_agentes_ia.md)
+- [Issue de Implementação](documentacao/issues/issue_jurisprudencia_agentes_ia.md)
 - Arquitetura detalhada e critérios de aceite
 - Plano de implementação por sprint
 
