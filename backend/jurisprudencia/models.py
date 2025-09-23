@@ -1,6 +1,10 @@
-from django.db import models
+from hashlib import sha256
+from decimal import Decimal
+
 from django.conf import settings
-from django.utils import timezone
+from django.core.exceptions import ValidationError
+from django.core.validators import MaxValueValidator, MinValueValidator
+from django.db import models
 import uuid
 
 
@@ -22,6 +26,14 @@ class BaseModel(models.Model):
     
     class Meta:
         abstract = True
+
+    def save(self, *args, **kwargs):
+        should_full_clean = kwargs.pop('full_clean', True)
+        if should_full_clean:
+            update_fields = kwargs.get('update_fields')
+            exclude = list(update_fields) if update_fields else None
+            self.full_clean(exclude=exclude, validate_unique=False)
+        super().save(*args, **kwargs)
 
 
 class Julgado(BaseModel):
@@ -45,7 +57,13 @@ class Julgado(BaseModel):
     
     # Controle de processamento
     processado = models.BooleanField(default=False, verbose_name="Processado pelos agentes")
-    hash_conteudo = models.CharField(max_length=64, db_index=True, verbose_name="Hash do conteúdo")
+    hash_conteudo = models.CharField(
+        max_length=64,
+        unique=True,
+        blank=True,
+        editable=False,
+        verbose_name="Hash do conteúdo"
+    )
     
     class Meta:
         verbose_name = "Julgado"
@@ -55,11 +73,15 @@ class Julgado(BaseModel):
             models.Index(fields=['tribunal', 'data_publicacao']),
             models.Index(fields=['numero_processo']),
             models.Index(fields=['djen_id']),
-            models.Index(fields=['hash_conteudo']),
         ]
-    
+
     def __str__(self):
         return f"{self.numero_processo} - {self.tribunal}"
+
+    def save(self, *args, **kwargs):
+        if not self.hash_conteudo and self.conteudo:
+            self.hash_conteudo = sha256(self.conteudo.encode('utf-8')).hexdigest()
+        super().save(*args, **kwargs)
 
 
 class AnaliseJurisprudenciaTese(BaseModel):
@@ -68,26 +90,35 @@ class AnaliseJurisprudenciaTese(BaseModel):
     Baseado no Cenário 1 dos storyboards
     """
     tese_juridica = models.TextField(verbose_name="Tese jurídica analisada")
-    termos_busca = models.JSONField(default=list, verbose_name="Termos de busca utilizados")
+    termos_busca = models.JSONField(default=list, blank=True, verbose_name="Termos de busca utilizados")
     
     # Parâmetros da análise
-    filtros_aplicados = models.JSONField(default=dict, verbose_name="Filtros aplicados na busca")
+    filtros_aplicados = models.JSONField(default=dict, blank=True, verbose_name="Filtros aplicados na busca")
     periodo_analise_inicio = models.DateField(verbose_name="Início do período analisado")
     periodo_analise_fim = models.DateField(verbose_name="Fim do período analisado")
     
     # Resultados da análise
-    total_julgados_encontrados = models.IntegerField(default=0, verbose_name="Total de julgados encontrados")
-    total_julgados_favoraveis = models.IntegerField(default=0, verbose_name="Total de julgados favoráveis")
+    total_julgados_encontrados = models.IntegerField(
+        default=0,
+        validators=[MinValueValidator(0)],
+        verbose_name="Total de julgados encontrados"
+    )
+    total_julgados_favoraveis = models.IntegerField(
+        default=0,
+        validators=[MinValueValidator(0)],
+        verbose_name="Total de julgados favoráveis"
+    )
     percentual_favorabilidade = models.DecimalField(
         max_digits=5, 
         decimal_places=2, 
         default=0.00,
+        validators=[MinValueValidator(0), MaxValueValidator(100)],
         verbose_name="Percentual de favorabilidade"
     )
     
     # Análise qualitativa
-    argumentos_favoraveis = models.JSONField(default=list, verbose_name="Principais argumentos favoráveis")
-    precedentes_fortes = models.JSONField(default=list, verbose_name="Precedentes de tribunais superiores")
+    argumentos_favoraveis = models.JSONField(default=list, blank=True, verbose_name="Principais argumentos favoráveis")
+    precedentes_fortes = models.JSONField(default=list, blank=True, verbose_name="Precedentes de tribunais superiores")
     observacoes = models.TextField(blank=True, null=True, verbose_name="Observações da análise")
     
     # Status da análise
@@ -122,6 +153,18 @@ class AnaliseJurisprudenciaTese(BaseModel):
     def __str__(self):
         return f"Análise: {self.tese_juridica[:100]}..."
 
+    def clean(self):
+        super().clean()
+        if self.periodo_analise_inicio and self.periodo_analise_fim:
+            if self.periodo_analise_inicio > self.periodo_analise_fim:
+                raise ValidationError("O início do período não pode ser posterior ao fim.")
+
+        if self.total_julgados_favoraveis > self.total_julgados_encontrados:
+            raise ValidationError("Julgados favoráveis não podem exceder o total encontrado.")
+
+        if not (Decimal('0') <= Decimal(self.percentual_favorabilidade) <= Decimal('100')):
+            raise ValidationError("Percentual de favorabilidade deve estar entre 0 e 100.")
+
 
 class JulgadoFavoravel(BaseModel):
     """
@@ -133,11 +176,12 @@ class JulgadoFavoravel(BaseModel):
     score_favorabilidade = models.DecimalField(
         max_digits=5,
         decimal_places=2,
+        validators=[MinValueValidator(0), MaxValueValidator(100)],
         verbose_name="Score de favorabilidade (0-100)"
     )
     justificativa = models.TextField(verbose_name="Justificativa do score")
     eh_precedente_forte = models.BooleanField(default=False, verbose_name="É precedente forte")
-    argumentos_chave = models.JSONField(default=list, verbose_name="Argumentos-chave identificados")
+    argumentos_chave = models.JSONField(default=list, blank=True, verbose_name="Argumentos-chave identificados")
     
     class Meta:
         verbose_name = "Julgado Favorável"
@@ -158,15 +202,31 @@ class AnaliseJurisprudenciaNeutra(BaseModel):
     Baseado no Cenário 2 dos storyboards
     """
     tema_juridico = models.TextField(verbose_name="Tema jurídico analisado")
-    filtros_aplicados = models.JSONField(default=dict, verbose_name="Filtros aplicados na busca")
+    filtros_aplicados = models.JSONField(default=dict, blank=True, verbose_name="Filtros aplicados na busca")
     periodo_analise_inicio = models.DateField(verbose_name="Início do período analisado")
     periodo_analise_fim = models.DateField(verbose_name="Fim do período analisado")
     
     # Resultados quantitativos
-    total_julgados_analisados = models.IntegerField(default=0, verbose_name="Total de julgados analisados")
-    julgados_favoraveis = models.IntegerField(default=0, verbose_name="Julgados favoráveis ao tema")
-    julgados_contrarios = models.IntegerField(default=0, verbose_name="Julgados contrários ao tema")
-    julgados_neutros = models.IntegerField(default=0, verbose_name="Julgados neutros")
+    total_julgados_analisados = models.IntegerField(
+        default=0,
+        validators=[MinValueValidator(0)],
+        verbose_name="Total de julgados analisados"
+    )
+    julgados_favoraveis = models.IntegerField(
+        default=0,
+        validators=[MinValueValidator(0)],
+        verbose_name="Julgados favoráveis ao tema"
+    )
+    julgados_contrarios = models.IntegerField(
+        default=0,
+        validators=[MinValueValidator(0)],
+        verbose_name="Julgados contrários ao tema"
+    )
+    julgados_neutros = models.IntegerField(
+        default=0,
+        validators=[MinValueValidator(0)],
+        verbose_name="Julgados neutros"
+    )
     
     # Análise qualitativa
     tendencia_majoritaria = models.CharField(
@@ -179,9 +239,9 @@ class AnaliseJurisprudenciaNeutra(BaseModel):
         ],
         verbose_name="Tendência majoritária"
     )
-    argumentos_pro = models.JSONField(default=list, verbose_name="Principais argumentos pró")
-    argumentos_contra = models.JSONField(default=list, verbose_name="Principais argumentos contra")
-    evolucao_temporal = models.JSONField(default=dict, verbose_name="Evolução da tendência no tempo")
+    argumentos_pro = models.JSONField(default=list, blank=True, verbose_name="Principais argumentos pró")
+    argumentos_contra = models.JSONField(default=list, blank=True, verbose_name="Principais argumentos contra")
+    evolucao_temporal = models.JSONField(default=dict, blank=True, verbose_name="Evolução da tendência no tempo")
     
     # Julgados representativos
     julgados_representativos = models.ManyToManyField(
@@ -214,6 +274,16 @@ class AnaliseJurisprudenciaNeutra(BaseModel):
     def __str__(self):
         return f"Análise Neutra: {self.tema_juridico[:100]}..."
 
+    def clean(self):
+        super().clean()
+        if self.periodo_analise_inicio and self.periodo_analise_fim:
+            if self.periodo_analise_inicio > self.periodo_analise_fim:
+                raise ValidationError("O início do período não pode ser posterior ao fim.")
+
+        subtotal = self.julgados_favoraveis + self.julgados_contrarios + self.julgados_neutros
+        if subtotal > self.total_julgados_analisados:
+            raise ValidationError("A soma das classificações não pode exceder o total analisado.")
+
 
 class PadroesVaraTribunal(BaseModel):
     """
@@ -228,18 +298,22 @@ class PadroesVaraTribunal(BaseModel):
     periodo_analise_fim = models.DateField(verbose_name="Fim do período analisado")
     
     # Padrões identificados
-    total_julgados_analisados = models.IntegerField(default=0, verbose_name="Total de julgados analisados")
-    padroes_julgamento = models.JSONField(default=dict, verbose_name="Padrões de julgamento identificados")
-    perfil_julgador = models.JSONField(default=dict, verbose_name="Perfil do julgador/órgão")
-    precedentes_citados = models.JSONField(default=list, verbose_name="Precedentes mais citados")
+    total_julgados_analisados = models.IntegerField(
+        default=0,
+        validators=[MinValueValidator(0)],
+        verbose_name="Total de julgados analisados"
+    )
+    padroes_julgamento = models.JSONField(default=dict, blank=True, verbose_name="Padrões de julgamento identificados")
+    perfil_julgador = models.JSONField(default=dict, blank=True, verbose_name="Perfil do julgador/órgão")
+    precedentes_citados = models.JSONField(default=list, blank=True, verbose_name="Precedentes mais citados")
     
     # Estatísticas específicas
-    valores_indenizacao = models.JSONField(default=dict, verbose_name="Estatísticas de valores (se aplicável)")
-    teses_aceitas = models.JSONField(default=list, verbose_name="Teses frequentemente aceitas")
-    teses_rejeitadas = models.JSONField(default=list, verbose_name="Teses frequentemente rejeitadas")
+    valores_indenizacao = models.JSONField(default=dict, blank=True, verbose_name="Estatísticas de valores (se aplicável)")
+    teses_aceitas = models.JSONField(default=list, blank=True, verbose_name="Teses frequentemente aceitas")
+    teses_rejeitadas = models.JSONField(default=list, blank=True, verbose_name="Teses frequentemente rejeitadas")
     
     # Comparação com outros órgãos
-    comparacao_outros_orgaos = models.JSONField(default=dict, verbose_name="Comparação com outros órgãos")
+    comparacao_outros_orgaos = models.JSONField(default=dict, blank=True, verbose_name="Comparação com outros órgãos")
     
     # Relacionamentos
     julgados_analisados = models.ManyToManyField(
@@ -274,6 +348,12 @@ class PadroesVaraTribunal(BaseModel):
         vara_info = f" - {self.vara}" if self.vara else ""
         return f"{self.tribunal}{vara_info}: {self.tema_juridico[:50]}..."
 
+    def clean(self):
+        super().clean()
+        if self.periodo_analise_inicio and self.periodo_analise_fim:
+            if self.periodo_analise_inicio > self.periodo_analise_fim:
+                raise ValidationError("O início do período não pode ser posterior ao fim.")
+
 
 class EstrategiaAntecipatoria(BaseModel):
     """
@@ -285,7 +365,7 @@ class EstrategiaAntecipatoria(BaseModel):
     vara_destino = models.CharField(max_length=255, blank=True, null=True, verbose_name="Vara específica")
     
     # Documentos do caso
-    documentos_caso = models.JSONField(default=list, verbose_name="Documentos do caso analisados")
+    documentos_caso = models.JSONField(default=list, blank=True, verbose_name="Documentos do caso analisados")
     resumo_caso = models.TextField(verbose_name="Resumo do caso")
     
     # Análise baseada nos padrões históricos
@@ -302,18 +382,19 @@ class EstrategiaAntecipatoria(BaseModel):
     probabilidade_sucesso = models.DecimalField(
         max_digits=5,
         decimal_places=2,
+        validators=[MinValueValidator(0), MaxValueValidator(100)],
         verbose_name="Probabilidade de sucesso (%)"
     )
-    riscos_identificados = models.JSONField(default=list, verbose_name="Riscos específicos identificados")
-    estrategias_mitigacao = models.JSONField(default=list, verbose_name="Estratégias de mitigação")
+    riscos_identificados = models.JSONField(default=list, blank=True, verbose_name="Riscos específicos identificados")
+    estrategias_mitigacao = models.JSONField(default=list, blank=True, verbose_name="Estratégias de mitigação")
     
     # Recomendações estratégicas
-    argumentos_direcionados = models.JSONField(default=list, verbose_name="Argumentos direcionados para o órgão")
-    precedentes_recomendados = models.JSONField(default=list, verbose_name="Precedentes recomendados para citação")
-    pontos_atencao = models.JSONField(default=list, verbose_name="Pontos de atenção específicos")
+    argumentos_direcionados = models.JSONField(default=list, blank=True, verbose_name="Argumentos direcionados para o órgão")
+    precedentes_recomendados = models.JSONField(default=list, blank=True, verbose_name="Precedentes recomendados para citação")
+    pontos_atencao = models.JSONField(default=list, blank=True, verbose_name="Pontos de atenção específicos")
     
     # Timeline de atuação
-    cronograma_recomendado = models.JSONField(default=dict, verbose_name="Cronograma recomendado")
+    cronograma_recomendado = models.JSONField(default=dict, blank=True, verbose_name="Cronograma recomendado")
     
     # Status da análise
     status = models.CharField(
@@ -356,3 +437,9 @@ class EstrategiaAntecipatoria(BaseModel):
     
     def __str__(self):
         return f"Estratégia: {self.numero_processo} - {self.tribunal_destino}"
+
+    def clean(self):
+        super().clean()
+        if self.probabilidade_sucesso is not None:
+            if not (Decimal('0') <= Decimal(self.probabilidade_sucesso) <= Decimal('100')):
+                raise ValidationError("Probabilidade de sucesso deve estar entre 0 e 100.")
