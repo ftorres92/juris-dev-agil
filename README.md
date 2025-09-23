@@ -6,73 +6,15 @@
 
 ## 👥 **Equipe**
 
-| Nome | GitHub |
-|------|--------|
-| Fernando Torres | [@ftorres92](https://github.com/ftorres92) |
-| Fernando Lobo | [@fernandolobo](https://github.com/fernandolobo) |
-| Marcio Ferreira | [@MarcioFerrer](https://github.com/MarcioFerrer) |
-| Elinton Camacho Piratello | [@elintonpiratello](https://github.com/elintonpiratello) |
-| Flavio Eustaquio de Oliveira | [@flavioeustaquio](https://github.com/flavioeustaquio) |
-| Heloiza de Oliveira Souza | [@heloizaoliveira](https://github.com/heloizaoliveira) |
-| José Ramos Damasceno Filho | [@joseramos](https://github.com/joseramos) |
-
-## 🎭 **Papéis no Grupo (Rotativos a cada Sprint)**
-
-### **Product Owner (PO)**
-- **Responsável**: Marcio Ferreira
-- **Responsabilidades**: 
-  - Visão do produto e backlog
-  - Definição de prioridades e requisitos
-  - Comunicação com stakeholders
-  - Validação de entregas
-
-### **Scrum Master / Facilitator**
-- **Responsável**: Fernando Lobo
-- **Responsabilidades**:
-  - Garantir ritmo e rituais ágeis
-  - Facilitar reuniões e cerimônias
-  - Remover impedimentos
-  - Promover cultura ágil
-
-### **Líder Técnico (Technical Lead)**
-- **Responsável**: Fernando Torres
-- **Responsabilidades**:
-  - Definição de integrações e arquitetura
-  - Cuidado com métricas, testes e governança
-  - Decisões técnicas estratégicas
-  - Mentoria técnica da equipe
-
-### **Pesquisador Científico**
-- **Responsável**: Heloiza de Oliveira Souza
-- **Responsabilidades**:
-  - Busca por bases de dados e literatura
-  - Pesquisa de jurisprudência e precedentes
-  - Análise de tendências jurídicas
-  - Validação científica das abordagens
-
-### **Dev de Protótipos**
-- **Responsável**: Elinton Camacho Piratello
-- **Responsabilidades**:
-  - Implementação de agentes e pipelines
-  - Desenvolvimento de protótipos
-  - Testes e validação técnica
-  - Integração de componentes
-
-### **Especialista em Dados**
-- **Responsável**: Flavio Eustaquio de Oliveira
-- **Responsabilidades**:
-  - Processamento e análise de dados jurídicos
-  - Modelagem de dados
-  - Otimização de performance
-  - Qualidade e limpeza de dados
-
-### **Especialista em UX/UI**
-- **Responsável**: José Ramos Damasceno Filho
-- **Responsabilidades**:
-  - Design de interface e experiência do usuário
-  - Prototipação de telas
-  - Testes de usabilidade
-  - Acessibilidade e design responsivo
+| Nome | GitHub | Papel |
+|------|--------|-------|
+| Fernando Torres | [@ftorres92](https://github.com/ftorres92) | 🛠️ Líder Técnico |
+| Fernando Lobo | [@fernandolobo](https://github.com/fernandolobo) | 🎯 Scrum Master |
+| Marcio Ferreira | [@MarcioFerrer](https://github.com/MarcioFerrer) | 📋 Product Owner |
+| Elinton Camacho Piratello | [@elintonpiratello](https://github.com/elintonpiratello) | 🔬 Pesquisador Científico |
+| Flavio Eustaquio de Oliveira | [@flavioeustaquio](https://github.com/flavioeustaquio) | 🚀 Dev de Protótipos |
+| Heloiza de Oliveira Souza | [@heloizaoliveira](https://github.com/heloizaoliveira) | 🚀 Dev de Protótipos |
+| José Ramos Damasceno Filho | [@joseramos](https://github.com/joseramos) | 🚀 Dev de Protótipos |
 
 ## 🎯 **Visão Geral da Solução**
 
