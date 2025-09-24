@@ -265,4 +265,7 @@ legal_ai/ia/models/
 **Sprint Target:** Sprint 3-7  
 **Stakeholder:** Equipe de IA + Product Owner  
 
-**Este Canvas representa uma oportunidade única de transformar o JuristIA no líder absoluto em análise jurídica inteligente no Brasil, resolvendo o problema real da pesquisa de jurisprudência mista e oferecendo 4 cenários estratégicos inéditos no mercado.**
+
+## 🧭 **Documentação Sprint 2**
+- [Especificação Técnica Sprint 2 - Agentes de Jurisprudência](../architecture/agentes_sprint2.md)
+- Checklist de pronto e fluxos atualizados disponíveis no documento acima.
