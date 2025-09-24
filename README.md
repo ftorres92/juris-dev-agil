@@ -9,7 +9,7 @@
 | Nome | GitHub | Papel |
 |------|--------|-------|
 | Fernando Torres | [@ftorres92](https://github.com/ftorres92) | 🛠️ Líder Técnico |
-| Fernando Lobo | [@fernandolobo] | 🎯 Scrum Master |
+| Fernando Lobo | [@fernandolobo](https://github.com/fernandoleme01)| 🎯 Scrum Master |
 | Marcio Ferreira | [@MarcioFerrer](https://github.com/MarcioFerrer) | 📋 Product Owner |
 | Elinton Camacho Piratello | [@elintonpiratello] | 🔬 Pesquisador Científico |
 | Flavio Eustaquio de Oliveira | [@flavioeustaquio]| 🚀 Dev de Protótipos |
