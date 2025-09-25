@@ -57,8 +57,13 @@ def build_params_from_busca_form(cleaned: Dict[str, Any]) -> Dict[str, Any]:
         params["texto"] = termo
         params["termo"] = termo
 
-    if cleaned.get("sigla_tribunal"):
-        params["siglaTribunal"] = cleaned["sigla_tribunal"]
+    # Campo no formulário é 'tribunais' (lista). Se houver apenas um selecionado, mapeia para siglaTribunal
+    tribunais = cleaned.get("tribunais") or []
+    if isinstance(tribunais, (list, tuple)) and len(tribunais) == 1:
+        params["siglaTribunal"] = tribunais[0]
+    elif isinstance(tribunais, (list, tuple)) and len(tribunais) > 1:
+        # Alguns gateways aceitam parâmetro repetido. O requests expande listas em múltiplos params.
+        params["siglaTribunal"] = tribunais
 
     if cleaned.get("data_inicio"):
         params["dataDisponibilizacaoInicio"] = _iso_date(cleaned["data_inicio"]) or cleaned["data_inicio"]
