@@ -274,7 +274,7 @@
 
                       <div class="mb-3">
                         <span class="muted-label d-block small">Ementa / resumo</span>
-                        <p class="mb-0" style="white-space: pre-line; line-height: 1.6;">{{ julgado.ementa }}</p>
+                        <div class="mb-0" style="white-space: normal; line-height: 1.6;">{{ julgado.ementa|safe }}</div>
                       </div>
 
                       {% if julgado.decisao %}
@@ -283,7 +283,7 @@
                             <i class="fa-solid fa-file-lines me-2"></i>
                             Ver decisão completa
                           </summary>
-                          <div style="white-space: pre-line; line-height: 1.6;" class="text-muted">{{ julgado.decisao }}</div>
+                          <div style="white-space: normal; line-height: 1.6;" class="text-muted">{{ julgado.decisao|safe }}</div>
                         </details>
                       {% endif %}
                     </div>
