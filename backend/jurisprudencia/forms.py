@@ -6,11 +6,30 @@ from typing import Iterable, List, Sequence
 from django import forms
 
 TRIBUNAIS_PADRAO: Sequence[str] = (
-    'STF', 'STJ', 'TST', 'STM',
+    # Superiores e Conselhos
+    'STF', 'STJ', 'TST', 'TSE', 'STM', 'CSJT', 'CJF', 'CNJ', 'PJeCor', 'SEEU',
+
+    # TRFs
     'TRF1', 'TRF2', 'TRF3', 'TRF4', 'TRF5', 'TRF6',
+
+    # TRTs (1 a 24)
+    'TRT1', 'TRT2', 'TRT3', 'TRT4', 'TRT5', 'TRT6', 'TRT7', 'TRT8', 'TRT9',
+    'TRT10', 'TRT11', 'TRT12', 'TRT13', 'TRT14', 'TRT15', 'TRT16', 'TRT17', 'TRT18',
+    'TRT19', 'TRT20', 'TRT21', 'TRT22', 'TRT23', 'TRT24',
+
+    # TREs (todas as UFs)
+    'TRE-AC', 'TRE-AL', 'TRE-AM', 'TRE-AP', 'TRE-BA', 'TRE-CE', 'TRE-DF', 'TRE-ES',
+    'TRE-GO', 'TRE-MA', 'TRE-MG', 'TRE-MS', 'TRE-MT', 'TRE-PA', 'TRE-PB', 'TRE-PE',
+    'TRE-PI', 'TRE-PR', 'TRE-RJ', 'TRE-RN', 'TRE-RO', 'TRE-RR', 'TRE-RS', 'TRE-SC',
+    'TRE-SE', 'TRE-SP', 'TRE-TO',
+
+    # TJs (todas as UFs)
     'TJAC', 'TJAL', 'TJAM', 'TJAP', 'TJBA', 'TJCE', 'TJDFT', 'TJES', 'TJGO', 'TJMA',
     'TJMG', 'TJMS', 'TJMT', 'TJPA', 'TJPB', 'TJPE', 'TJPI', 'TJRJ', 'TJRN', 'TJRO',
     'TJRR', 'TJRS', 'TJSC', 'TJSE', 'TJSP', 'TJTO',
+
+    # TJMs (estaduais)
+    'TJMMG', 'TJMRS', 'TJMSP',
 )
 
 TIPOS_DECISAO_PADRAO = (
