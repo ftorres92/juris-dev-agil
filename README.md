@@ -86,14 +86,13 @@ DJEN → Agentes Especializados → Análises Estratégicas → Dashboard → Us
 juris-dev-agil/
 ├── documentacao/          # Documentação completa do projeto
 │   ├── canvas/           # Canvas do projeto
-│   └── backlog/          # Backlog e PBB
-├── ia/                   # Sistema de Agentes de IA
-│   ├── agentes/          # Agentes especializados
-│   ├── pipelines/        # Pipeline de processamento
-│   └── models/           # Modelos de dados
+│   ├── backlog/          # Backlog e PBB
+│   └── architecture/     # Especificações técnicas
 ├── backend/              # Aplicação backend Django
-├── frontend/             # Aplicação web React
-├── app/                  # Aplicativo mobile React Native
+│   ├── juris_ai/         # Configuração Django
+│   ├── jurisprudencia/   # App principal com agentes
+│   └── templates/        # Templates Django (Bootstrap)
+├── app/                  # Aplicativo mobile React Native (Sprint 6+)
 └── README.md             # Este arquivo
 ```
 
@@ -176,31 +175,43 @@ python manage.py runserver
 
 ## 🎯 **Roadmap de Implementação**
 
-### **Sprint 1-2: Setup e Planejamento**
-- Configuração do ambiente de desenvolvimento
-- Definição de arquitetura e especificações
-- Planejamento detalhado dos agentes
+### **Sprint 1-2: Setup e Planejamento** ✅
+- ✅ Configuração do ambiente de desenvolvimento
+- ✅ Definição de arquitetura e especificações
+- ✅ Planejamento detalhado dos agentes
+- ✅ Interface Django Bootstrap para consulta DJEN
 
-### **Sprint 3: MVP - Busca Favorável à Tese**
-- AgenteClassificadorTese para classificar julgados
-- Interface básica para consulta de julgados favoráveis
-- Algoritmo de classificação favorável/desfavorável
-- Integração DJEN e modelos de dados
+### **Sprint 3: Integração e Validação**
+- 🔄 Validação integração DJENCollector com API
+- 🔄 Verificação integridade dos dados DJEN
+- 🔄 Melhoria interface de consulta Django
+- 🔄 Tratamento de erros robusto
+- 🔄 Dashboard Django com métricas e gráficos
+- 🔄 API REST e WebSocket configurados
 
-### **Sprint 4: Análise Neutra**
+### **Sprint 4: MVP - Busca Favorável à Tese**
+- 🔄 AgenteClassificadorTese para classificar julgados
+- 🔄 Interface Django aprimorada para consulta de julgados favoráveis
+- 🔄 Algoritmo de classificação favorável/desfavorável
+- 🔄 Integração DJEN e modelos de dados
+
+### **Sprint 5: Análise Neutra**
 - AgenteAnalisadorNeutro para análise objetiva
-- Dashboard para análise neutra
+- Interface Django para análise neutra
 - Identificação de argumentos pró e contra
+- Gráficos e estatísticas avançadas
 
-### **Sprint 5: Padrões por Vara**
+### **Sprint 6: Padrões por Vara**
 - AgenteAnalisadorVara para padrões específicos
 - Relatório: "Sobre o tema X, essa vara decide..."
 - Geração de perfil do julgador
+- Interface Django para visualização de padrões
 
-### **Sprint 6: Estratégia Antecipatória**
+### **Sprint 7: Estratégia Antecipatória + Mobile**
 - AgenteEstrategicoAntecipatorio para predições
 - Sistema de argumentos direcionados
 - Relatórios exportáveis em PDF/DOCX
+- 🆕 **App Mobile**: React Native para consultas móveis
 
 ## 🤝 **Contribuição**
 

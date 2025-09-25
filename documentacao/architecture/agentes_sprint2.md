@@ -201,7 +201,29 @@ Responda em JSON.
 
 ## 6. Interfaces e Contratos
 
-### 6.1 API REST (a ser implementada)
+### 6.1 Interface Django (Sprint 3+)
+
+**Arquitetura Frontend Django:**
+- **Django Templates** com sistema nativo
+- **Bootstrap 5** para design responsivo
+- **Chart.js** para visualização de dados
+- **HTMX** para interatividade
+- **Django REST Framework** para APIs
+
+**Páginas Principais:**
+- `Dashboard`: Visão geral das análises e métricas
+- `ConsultaJurisprudencia`: Interface de busca aprimorada
+- `ResultadosAnalise`: Visualização de resultados dos agentes
+- `GraficosEstatisticos`: Charts e métricas interativas
+- `ExportacaoRelatorios`: Geração e download de relatórios
+
+**Melhorias Django:**
+- Templates responsivos com Bootstrap
+- Componentes reutilizáveis (base templates)
+- API REST para integrações futuras
+- WebSocket com Django Channels
+
+### 6.2 API REST (a ser implementada)
 
 | Endpoint | Método | Descrição | Agente | Payload Principal |
 | --- | --- | --- | --- | --- |
