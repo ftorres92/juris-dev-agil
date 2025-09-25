@@ -10,6 +10,8 @@ import requests
 from requests.adapters import HTTPAdapter
 from urllib3.util.retry import Retry
 
+from .html_sanitizer import sanitize_fragment
+
 logger = logging.getLogger(__name__)
 
 
@@ -109,6 +111,8 @@ def _mapear_para_julgados(items: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
     julgados: List[Dict[str, Any]] = []
     for it in items:
         data_pub = it.get("data_disponibilizacao") or it.get("datadisponibilizacao")
+        ementa = it.get("texto")
+        ementa = sanitize_fragment(ementa) if isinstance(ementa, str) else ementa
         julgados.append(
             {
                 "id": it.get("id"),
@@ -116,8 +120,8 @@ def _mapear_para_julgados(items: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
                 "vara": it.get("nomeOrgao"),
                 "relator": None,
                 "dataJulgamento": data_pub,
-                "ementa": it.get("texto"),
-                "decisao": it.get("texto"),
+                "ementa": ementa,
+                "decisao": ementa,
                 "url": it.get("link"),
                 "processo": it.get("numero_processo") or it.get("numeroprocessocommascara"),
                 "classe": it.get("nomeClasse"),
