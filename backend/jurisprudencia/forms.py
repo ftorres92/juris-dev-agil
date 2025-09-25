@@ -49,3 +49,61 @@ class DjenSearchForm(forms.Form):
             cleaned_data['limite'] = 25
 
         return cleaned_data
+
+
+class IntimacoesBuscaForm(forms.Form):
+    """Formulário para consulta às intimações (DJEN proxy).
+
+    Suporta três modos de busca:
+    - por_oab: numero_oab + uf_oab (e datas opcionais)
+    - por_oab_string: oab_string (ex.: 'SP07749')
+    - por_nome: nome_advogado e/ou nome_parte, com filtros opcionais
+    """
+
+    MODO_CHOICES = (
+        ("por_oab", "Por OAB + UF"),
+        ("por_oab_string", "Por OAB como string"),
+        ("por_nome", "Por nome (advogado/parte)"),
+    )
+
+    modo = forms.ChoiceField(choices=MODO_CHOICES, initial="por_oab")
+
+    # por_oab
+    numero_oab = forms.CharField(required=False, max_length=20)
+    uf_oab = forms.CharField(required=False, max_length=2)
+
+    # por_oab_string
+    oab_string = forms.CharField(required=False, max_length=20)
+
+    # por_nome
+    nome_advogado = forms.CharField(required=False, max_length=255)
+    nome_parte = forms.CharField(required=False, max_length=255)
+    sigla_tribunal = forms.CharField(required=False, max_length=10)
+
+    # filtros comuns
+    data_inicio = forms.DateField(required=False)
+    data_fim = forms.DateField(required=False)
+    pagina = forms.IntegerField(required=False, min_value=1)
+    itens_por_pagina = forms.IntegerField(required=False, min_value=1, max_value=100)
+
+    def clean(self) -> dict:
+        cleaned = super().clean()
+        modo = cleaned.get("modo")
+
+        if modo == "por_oab":
+            if not cleaned.get("numero_oab") or not cleaned.get("uf_oab"):
+                self.add_error("numero_oab", "Informe o número da OAB e a UF.")
+                self.add_error("uf_oab", "Informe a UF da OAB.")
+        elif modo == "por_oab_string":
+            if not cleaned.get("oab_string"):
+                self.add_error("oab_string", "Informe a OAB como string (ex.: SP07749).")
+        elif modo == "por_nome":
+            if not cleaned.get("nome_advogado") and not cleaned.get("nome_parte"):
+                self.add_error("nome_advogado", "Informe ao menos um campo: advogado ou parte.")
+
+        di = cleaned.get("data_inicio")
+        df = cleaned.get("data_fim")
+        if di and df and di > df:
+            self.add_error("data_fim", "Data fim deve ser posterior à data início.")
+
+        return cleaned
