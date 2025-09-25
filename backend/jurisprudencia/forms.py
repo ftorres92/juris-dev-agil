@@ -25,7 +25,7 @@ TRIBUNAIS_PADRAO: Sequence[str] = (
 
     # TJs (todas as UFs)
     'TJAC', 'TJAL', 'TJAM', 'TJAP', 'TJBA', 'TJCE', 'TJDFT', 'TJES', 'TJGO', 'TJMA',
-    'TJMG', 'TJMS', 'TJMT', 'TJPA', 'TJPB', 'TJPE', 'TJPI', 'TJRJ', 'TJRN', 'TJRO',
+    'TJMG', 'TJMS', 'TJMT', 'TJPA', 'TJPB', 'TJPE', 'TJPI', 'TJPR', 'TJRJ', 'TJRN', 'TJRO',
     'TJRR', 'TJRS', 'TJSC', 'TJSE', 'TJSP', 'TJTO',
 
     # TJMs (estaduais)
