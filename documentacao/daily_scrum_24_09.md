@@ -29,6 +29,9 @@ Convergir os avanços técnicos iniciados e garantir que o time mantenha ritmo c
 | V6 - Logs e Monitoramento | ⏳ Pendente | - | Aguardando V1-V5 |
 | V7 - Testes de Integração | ⏳ Pendente | - | Aguardando V1-V6 |
 | V8 - Documentação | ⏳ Pendente | - | Aguardando V1-V7 |
+| D1-D5 - Melhorias Django | ⏳ Pendente | - | Templates, Dashboard, Interface |
+| D6-D8 - API REST | ⏳ Pendente | - | Rotas de busca e análise |
+| D9-D11 - Integração | ⏳ Pendente | - | Exportação, WebSocket, Testes |
 
 ### **Sprint 2 - Em Andamento (Infraestrutura)**
 | Tarefa | Status | Responsável | Observações |
@@ -93,7 +96,7 @@ Convergir os avanços técnicos iniciados e garantir que o time mantenha ritmo c
 - **Sprint 2 - Tarefas Concluídas**: 1/9 (11%)
 - **Sprint 2 - Tarefas Em Progresso**: 1/9 (11%)
 - **Sprint 2 - Tarefas Pendentes**: 7/9 (78%)
-- **Sprint 3 - Planejada**: 17 tarefas (V1-V8 + D1-D9)
+- **Sprint 3 - Planejada**: 19 tarefas (V1-V8 + D1-D11)
 - **Impedimentos**: 3 identificados
 
 ## 🔄 Ações Imediatas

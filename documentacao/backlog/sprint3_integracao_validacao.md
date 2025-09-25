@@ -30,10 +30,9 @@ Garantir que a integração entre frontend Django e backend esteja funcionando p
 | D3 | Melhorar interface de consulta de jurisprudência | Formulário aprimorado, filtros avançados, validação client-side | D1, V3 |
 | D4 | Desenvolver visualização de resultados aprimorada | Lista de julgados, filtros por favorabilidade, paginação | D1, V3 |
 | D5 | Implementar gráficos e estatísticas | Charts interativos, métricas de favorabilidade, comparações | D1, D2, biblioteca Chart.js |
-| D6 | Configurar Django REST Framework | API endpoints, serializers, autenticação JWT | V8 |
-| D7 | Implementar exportação de relatórios | Download PDF/DOCX, templates de relatório, preview | D1, V8 |
-| D8 | Configurar Django Channels para WebSocket | Atualizações em tempo real, notificações de status | D6 |
-| D9 | Implementar testes e CI/CD | Testes Django, testes de integração, deploy automatizado | D1-D8, V7 |
+| D6 | Implementar views Django para busca | Views de busca, formulários, templates | V1, V2 |
+| D7 | Implementar views Django para análise | Views de análise, status, resultados | V1, V2 |
+| D8 | Implementar templates responsivos | Templates HTML com Bootstrap 5 | D6, D7 |
 
 ## 🔧 Tarefas Técnicas Detalhadas
 
@@ -137,23 +136,36 @@ Garantir que a integração entre frontend Django e backend esteja funcionando p
 - [ ] Indicadores de favorabilidade
 - [ ] Ações em lote (seleção múltipla)
 
-#### **D5: Gráficos e Estatísticas**
-- [ ] Gráfico de favorabilidade (pie chart)
-- [ ] Distribuição por tribunal (bar chart)
-- [ ] Tendências temporais (line chart)
-- [ ] Comparativo entre agentes
-- [ ] Métricas de performance
-- [ ] Exportação de gráficos
 
-#### **D6: Django REST Framework**
-- [ ] Configurar DRF
-- [ ] Criar serializers
-- [ ] Implementar viewsets
-- [ ] Configurar autenticação JWT
-- [ ] Adicionar paginação
-- [ ] Implementar filtros
 
-#### **D7: Exportação de Relatórios**
+#### **D6: Views Django para Busca**
+- [ ] Implementar buscar_jurisprudencia_view
+- [ ] Criar BuscaJurisprudenciaForm
+- [ ] Implementar template buscar_jurisprudencia.html
+- [ ] Adicionar validação de formulário
+- [ ] Implementar paginação de resultados
+- [ ] Adicionar filtros avançados
+- [ ] Implementar cache de resultados
+
+#### **D7: Views Django para Análise**
+- [ ] Implementar analisar_jurisprudencia_view
+- [ ] Implementar status_analise_view
+- [ ] Implementar resultados_analise_view
+- [ ] Criar AnaliseJurisprudenciaForm
+- [ ] Implementar templates de análise
+- [ ] Adicionar AJAX para status
+- [ ] Implementar autenticação Django
+
+#### **D8: Templates Responsivos**
+- [ ] Criar base template com Bootstrap 5
+- [ ] Implementar template de busca
+- [ ] Implementar template de análise
+- [ ] Implementar template de status
+- [ ] Implementar template de resultados
+- [ ] Adicionar responsividade
+- [ ] Implementar navegação
+
+#### **D9: Exportação de Relatórios**
 - [ ] Interface de seleção de formato
 - [ ] Preview do relatório
 - [ ] Progress tracking do download
@@ -161,7 +173,7 @@ Garantir que a integração entre frontend Django e backend esteja funcionando p
 - [ ] Configurações de exportação
 - [ ] Histórico de downloads
 
-#### **D8: Django Channels WebSocket**
+#### **D10: Django Channels WebSocket**
 - [ ] Configurar Django Channels
 - [ ] Implementar consumers
 - [ ] Criar rotas WebSocket
@@ -169,7 +181,7 @@ Garantir que a integração entre frontend Django e backend esteja funcionando p
 - [ ] Adicionar reconexão automática
 - [ ] Configurar autenticação WebSocket
 
-#### **D9: Testes e CI/CD**
+#### **D11: Testes e CI/CD**
 - [ ] Configurar testes Django
 - [ ] Implementar testes de integração
 - [ ] Configurar GitHub Actions
@@ -250,23 +262,30 @@ Garantir que a integração entre frontend Django e backend esteja funcionando p
 - **Dia 3-4**: D3, D4 (Interface e resultados)
 - **Dia 5**: D5 (Gráficos)
 
-### **Semana 3 - Integração e Testes**
-- **Dia 1-2**: D6, D7 (API REST e exportação)
-- **Dia 3-4**: D8, D9 (WebSocket e testes)
-- **Dia 5**: V6, V7, V8 (Monitoramento e documentação)
+### **Semana 3 - API e Integração**
+- **Dia 1-2**: D6, D7 (API REST e rotas de busca)
+- **Dia 3-4**: D8, D9 (Rotas de análise e exportação)
+- **Dia 5**: D10, D11 (WebSocket e testes)
+
+### **Semana 4 - Finalização**
+- **Dia 1-2**: V6, V7 (Monitoramento e testes)
+- **Dia 3-4**: V8 (Documentação)
+- **Dia 5**: Validação final e ajustes
 
 ## 🎯 Entregáveis Finais
 
 1. **Interface Django otimizada** com busca DJEN funcionando perfeitamente
 2. **Dashboard funcional** com métricas e gráficos
-3. **Sistema de monitoramento** com logs e métricas
-4. **Testes automatizados** cobrindo todos os cenários
-5. **Documentação completa** técnica e de usuário
-6. **Base sólida** para implementação dos agentes
-7. **Performance validada** e otimizada
-8. **Tratamento de erros robusto** implementado
-9. **API REST configurada** para futuras integrações
+4. **Sistema de monitoramento** com logs e métricas
+5. **Testes automatizados** cobrindo todos os cenários
+6. **Documentação completa** técnica e de usuário
+7. **Base sólida** para implementação dos agentes
+8. **Performance validada** e otimizada
+9. **Tratamento de erros robusto** implementado
 10. **WebSocket funcionando** para atualizações em tempo real
+11. **Rotas de busca** implementadas e testadas
+12. **Rotas de análise** com agentes funcionando
+13. **Exportação de relatórios** implementada
 
 ## 📝 Observações
 
