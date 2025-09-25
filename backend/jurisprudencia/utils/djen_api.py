@@ -11,6 +11,7 @@ from requests.adapters import HTTPAdapter
 from urllib3.util.retry import Retry
 
 from .html_sanitizer import sanitize_fragment
+from .search_query import parse_query, compute_match_and_highlight
 
 logger = logging.getLogger(__name__)
 
@@ -142,6 +143,28 @@ def buscar_jurisprudencia_por_termo(cleaned_form: Dict[str, Any]) -> Dict[str, A
     data = _chamar_djen(params)
     items = data.get("items") or []
     julgados = _mapear_para_julgados(items)
+
+    # Pós-filtragem por termos (AND/OR/NOT, frases) e destaque
+    query = parse_query((cleaned_form.get('termo') or '').strip())
+    if any((query.phrases, query.required_terms, query.optional_terms, query.excluded_terms)):
+        scored = []
+        for j in julgados:
+            base = (j.get('ementa') or '') + ' ' + (j.get('decisao') or '')
+            score, highlighted = compute_match_and_highlight(base, query)
+            if score > 0 or not (query.required_terms or query.phrases):
+                j_high = dict(j)
+                j_high['ementa'] = highlighted
+                j_high['decisao'] = highlighted
+                j_high['__score'] = score
+                scored.append(j_high)
+        # Ordenar por score e, em empate, por data (mais recente primeiro)
+        scored.sort(key=lambda x: (x.get('__score', 0), x.get('dataJulgamento') or ''), reverse=True)
+        julgados = [
+            {k: v for k, v in j.items() if k != '__score'}
+        ]
+        julgados = [] if not scored else [
+            {k: v for k, v in j.items() if k != '__score'} for j in scored
+        ]
     return {
         "origem": data.get("origem", "djen"),
         "tempoExecucaoMs": data.get("tempoExecucaoMs", 0),
