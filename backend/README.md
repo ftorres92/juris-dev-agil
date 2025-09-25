@@ -67,3 +67,31 @@ Implementar o backend Django com agentes especializados para análise de jurispr
 3. Desenvolver agentes especializados
 4. Integrar com DJEN
 5. Implementar cache Redis
+
+## 🌐 **Interface Sprint 2 · DJEN**
+
+- `GET /djen/consulta/`: página Django (Bootstrap) para pesquisa de termos diretamente no coletor DJEN
+- Campos suportados: termo, tribunais múltiplos, tipo de decisão, período, limite de resultados
+- **Status**: ✅ Implementada e funcional
+
+## 🎨 **Interface Django (Sprint 3+)**
+
+### **Arquitetura Frontend Django**
+- **Django Templates**: Sistema de templates nativo
+- **Bootstrap 5**: Framework CSS responsivo
+- **Chart.js**: Visualização de dados
+- **HTMX**: Interatividade sem JavaScript complexo
+- **Django REST Framework**: API para integrações futuras
+
+### **Páginas Planejadas**
+- **Dashboard**: Visão geral das análises e métricas
+- **ConsultaJurisprudencia**: Interface de busca aprimorada
+- **ResultadosAnalise**: Visualização de resultados dos agentes
+- **GraficosEstatisticos**: Charts e métricas interativas
+- **ExportacaoRelatorios**: Geração e download de PDFs
+
+### **Melhorias Django**
+- **Templates Responsivos**: Design mobile-first
+- **Componentes Reutilizáveis**: Base templates e includes
+- **API REST**: Endpoints para futuras integrações
+- **WebSocket**: Atualizações em tempo real (Django Channels)
