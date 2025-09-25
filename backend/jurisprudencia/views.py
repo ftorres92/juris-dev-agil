@@ -10,10 +10,12 @@ from .forms import (
     IntimacoesBuscaForm,
 )
 from .utils.djen import DJENCollector, build_search_params
+from .utils.djen_api import buscar_jurisprudencia_por_termo
 from .utils.intimacoes import (
     buscar_intimacoes,
     buscar_intimacoes_por_oab_string,
     buscar_intimacoes_por_nome,
+    buscar_intimacoes_generico,
 )
 
 ORIGEM_LABELS = {
@@ -40,8 +42,8 @@ def djen_consulta_view(request):
         houve_busca = True
 
         if form.is_valid():
-            params = build_search_params(form.cleaned_data)
-            resultado = collector.search(params)
+            # Busca real via DJEN por termo/filtros
+            resultado = buscar_jurisprudencia_por_termo(form.cleaned_data)
             for item in resultado.get('julgados', []):
                 data_iso = item.get('dataJulgamento')
                 if data_iso:
@@ -110,6 +112,7 @@ def intimacoes_busca_view(request):
                         uf_oab=data["uf_oab"],
                         data_inicio=data.get("data_inicio").isoformat() if data.get("data_inicio") else None,
                         data_fim=data.get("data_fim").isoformat() if data.get("data_fim") else None,
+                        dupla_oab=True if request.GET.get('duplaOab') in ('1','true','yes') else False,
                     )
                 elif data["modo"] == "por_oab_string":
                     itens = buscar_intimacoes_por_oab_string(
@@ -126,6 +129,10 @@ def intimacoes_busca_view(request):
                         sigla_tribunal=data.get("sigla_tribunal"),
                         pagina=data.get("pagina"),
                         itens_por_pagina=data.get("itens_por_pagina"),
+                        numero_processo=request.GET.get('numeroProcesso'),
+                        numero_comunicacao=request.GET.get('numeroComunicacao'),
+                        orgao_id=request.GET.get('orgaoId'),
+                        meio=request.GET.get('meio'),
                     )
             except Exception as exc:  # pragma: no cover
                 erro_msg = str(exc)
