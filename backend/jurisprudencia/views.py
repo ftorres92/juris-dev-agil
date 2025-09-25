@@ -3,8 +3,18 @@ from datetime import datetime
 from django.shortcuts import render
 from django.views.decorators.http import require_http_methods
 
-from .forms import DjenSearchForm, TIPOS_DECISAO_PADRAO, TRIBUNAIS_PADRAO
+from .forms import (
+    DjenSearchForm,
+    TIPOS_DECISAO_PADRAO,
+    TRIBUNAIS_PADRAO,
+    IntimacoesBuscaForm,
+)
 from .utils.djen import DJENCollector, build_search_params
+from .utils.intimacoes import (
+    buscar_intimacoes,
+    buscar_intimacoes_por_oab_string,
+    buscar_intimacoes_por_nome,
+)
 
 ORIGEM_LABELS = {
     'cache': 'Cache 24h (Redis)',
@@ -75,3 +85,55 @@ def djen_consulta_view(request):
     }
 
     return render(request, 'jurisprudencia/djen_consulta.html', contexto)
+
+
+@require_http_methods(["GET"])
+def intimacoes_busca_view(request):
+    """Busca e exibe intimações a partir do proxy DJEN externo.
+
+    Suporta os três modos de consulta previstos no utilitário.
+    """
+
+    form = IntimacoesBuscaForm(request.GET or None)
+    itens = []
+    houve_busca = False
+    erro_msg = None
+
+    if request.GET and any(v for k, v in request.GET.items() if k != 'csrfmiddlewaretoken'):
+        houve_busca = True
+        if form.is_valid():
+            data = form.cleaned_data
+            try:
+                if data["modo"] == "por_oab":
+                    itens = buscar_intimacoes(
+                        numero_oab=data["numero_oab"],
+                        uf_oab=data["uf_oab"],
+                        data_inicio=data.get("data_inicio").isoformat() if data.get("data_inicio") else None,
+                        data_fim=data.get("data_fim").isoformat() if data.get("data_fim") else None,
+                    )
+                elif data["modo"] == "por_oab_string":
+                    itens = buscar_intimacoes_por_oab_string(
+                        oab_string=data["oab_string"],
+                        data_inicio=data.get("data_inicio").isoformat() if data.get("data_inicio") else None,
+                        data_fim=data.get("data_fim").isoformat() if data.get("data_fim") else None,
+                    )
+                else:
+                    itens = buscar_intimacoes_por_nome(
+                        nome_advogado=data.get("nome_advogado"),
+                        nome_parte=data.get("nome_parte"),
+                        data_inicio=data.get("data_inicio").isoformat() if data.get("data_inicio") else None,
+                        data_fim=data.get("data_fim").isoformat() if data.get("data_fim") else None,
+                        sigla_tribunal=data.get("sigla_tribunal"),
+                        pagina=data.get("pagina"),
+                        itens_por_pagina=data.get("itens_por_pagina"),
+                    )
+            except Exception as exc:  # pragma: no cover
+                erro_msg = str(exc)
+
+    contexto = {
+        'form': form,
+        'itens': itens,
+        'houve_busca': houve_busca,
+        'erro_msg': erro_msg,
+    }
+    return render(request, 'jurisprudencia/intimacoes_consulta.html', contexto)
