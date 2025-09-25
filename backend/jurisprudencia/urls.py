@@ -6,6 +6,6 @@ app_name = 'jurisprudencia'
 
 urlpatterns = [
     path('djen/consulta/', djen_consulta_view, name='djen-consulta'),
-    path('buscar/', intimacoes_busca_view, name='buscar_jurisprudencia'),
-    path('intimacoes/buscar/', intimacoes_busca_view, name='intimacoes-buscar'),
+    path('buscar/', djen_consulta_view, name='buscar_jurisprudencia'),
+    path('intimacoes/', intimacoes_busca_view, name='intimacoes-buscar'),
 ]
