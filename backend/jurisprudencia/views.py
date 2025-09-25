@@ -7,12 +7,9 @@ from .forms import (
     DjenSearchForm,
     TIPOS_DECISAO_PADRAO,
     TRIBUNAIS_PADRAO,
-    IntimacoesBuscaForm,
 )
 from .utils.djen import DJENCollector, build_search_params
 from .utils.djen_api import buscar_jurisprudencia_por_termo
-from .utils.intimacoes import (
-)
 
 ORIGEM_LABELS = {
     'cache': 'Cache 24h (Redis)',
