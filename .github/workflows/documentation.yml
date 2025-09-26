@@ -1,0 +1,49 @@
+name: Documentation Automation
+
+on:
+  push:
+    branches: [ main, develop ]
+    paths:
+      - 'documentacao/**'
+      - 'backend/**'
+  pull_request:
+    branches: [ main, develop ]
+    paths:
+      - 'documentacao/**'
+
+jobs:
+  update-docs:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+    
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+    
+    - name: Install dependencies
+      run: |
+        pip install -r requirements.txt
+    
+    - name: Generate API Documentation
+      run: |
+        cd backend
+        python manage.py generate_docs --output ../documentacao/api/
+    
+    - name: Update Progress Report
+      run: |
+        # Gerar relatório de progresso baseado nas issues
+        gh issue list --state all --json number,title,state,labels > issues.json
+        python scripts/generate_progress_report.py
+    
+    - name: Commit Documentation Updates
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git add documentacao/
+        git diff --staged --quiet || git commit -m "docs: Auto-update documentation [skip ci]"
+        git push
