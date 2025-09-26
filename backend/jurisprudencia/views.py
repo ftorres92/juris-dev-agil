@@ -8,7 +8,6 @@ from .forms import (
     TIPOS_DECISAO_PADRAO,
     TRIBUNAIS_PADRAO,
 )
-from .utils.djen import DJENCollector, build_search_params
 from .utils.djen_api import buscar_jurisprudencia_por_termo
 
 ORIGEM_LABELS = {
@@ -22,7 +21,6 @@ ORIGEM_LABELS = {
 def djen_consulta_view(request):
     """Página Sprint 2 · T2/T8 para pesquisa de julgados via DJEN."""
 
-    collector = DJENCollector()
     data = request.POST if request.method == 'POST' else request.GET
 
     resultado = None
