@@ -150,7 +150,20 @@ Organizar todas as issues implementadas e pendentes no GitHub Projects para melh
   - Análise preditiva
   - Recomendações estratégicas
 
-### **Melhorias Django (D1-D9)**
+### **Melhorias Django (D0-D9)**
+
+#### **D0 - Página Inicial do Sistema**
+- **Issue**: `#D0` - Implementar Página Inicial do Sistema
+- **Status**: ⏳ **PENDENTE**
+- **Descrição**: Landing page explicando o sistema com navegação para pesquisa
+- **Prioridade**: 🔥 **ALTA**
+- **Estimativa**: 6 SP
+- **Funcionalidades**:
+  - Seção Hero com CTA para pesquisa
+  - Cards explicativos das 4 funcionalidades
+  - Seção de benefícios
+  - Seção "Como Funciona"
+  - Layout responsivo com Bootstrap 5
 
 #### **D1 - Templates Django Aprimorados**
 - **Issue**: `#D1` - Aprimorar templates Django com Bootstrap 5
@@ -204,12 +217,12 @@ Organizar todas as issues implementadas e pendentes no GitHub Projects para melh
 
 ### **⏳ Para mover para "To Do":**
 - A1, A2, A3, A4 (4 issues - Agentes de IA)
-- D1, D2, D3, D4, D5, D6, D7, D8, D9 (9 issues - Melhorias Django)
+- D0, D1, D2, D3, D4, D5, D6, D7, D8, D9 (10 issues - Melhorias Django)
 
 ### **📈 Métricas:**
-- **Total de Issues**: 21
-- **Concluídas**: 8 (38%)
-- **Pendentes**: 13 (62%)
+- **Total de Issues**: 22
+- **Concluídas**: 8 (36%)
+- **Pendentes**: 14 (64%)
 - **Sprint 3**: ✅ **CONCLUÍDA**
 - **Sprint 4**: ⏳ **PENDENTE**
 
