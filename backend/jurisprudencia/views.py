@@ -17,6 +17,12 @@ ORIGEM_LABELS = {
 }
 
 
+@require_http_methods(["GET"])
+def home_view(request):
+    """Página inicial com CTA para pesquisa de jurisprudência."""
+    return render(request, 'jurisprudencia/home.html', {})
+
+
 @require_http_methods(["GET", "POST"])
 def djen_consulta_view(request):
     """Página Sprint 2 · T2/T8 para pesquisa de julgados via DJEN."""
