@@ -159,12 +159,10 @@ def buscar_jurisprudencia_por_termo(cleaned_form: Dict[str, Any]) -> Dict[str, A
                 scored.append(j_high)
         # Ordenar por score e, em empate, por data (mais recente primeiro)
         scored.sort(key=lambda x: (x.get('__score', 0), x.get('dataJulgamento') or ''), reverse=True)
-        julgados = [
-            {k: v for k, v in j.items() if k != '__score'}
-        ]
-        julgados = [] if not scored else [
-            {k: v for k, v in j.items() if k != '__score'} for j in scored
-        ]
+        if scored:
+            julgados = [{k: v for k, v in item.items() if k != '__score'} for item in scored]
+        else:
+            julgados = []
     return {
         "origem": data.get("origem", "djen"),
         "tempoExecucaoMs": data.get("tempoExecucaoMs", 0),
