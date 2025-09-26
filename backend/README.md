@@ -70,8 +70,10 @@ Implementar o backend Django com agentes especializados para análise de jurispr
 
 ## 🌐 **Interface Sprint 2 · DJEN**
 
-- `GET /djen/consulta/`: página Django (Bootstrap) para pesquisa de termos diretamente no coletor DJEN
-- Campos suportados: termo, tribunais múltiplos, tipo de decisão, período, limite de resultados
+- `GET /buscar/` e `GET /djen/consulta/`: página Django (Bootstrap) para pesquisa de termos no DJEN
+- Campos suportados: termo, tribunais múltiplos (STF/STJ/TSE/TST/STM, TRFs, TRTs, TREs, TJs, TJMs), período, limite, número do processo
+- Integração real com `DJEN_API_URL` (retry/backoff) + sanitização de HTML (bleach)
+- Pós-filtragem semântica local: frases, AND/OR/NOT, normalização acento-insensível, stopwords PT, destaque `<mark>` e ranking por relevância/recência
 - **Status**: ✅ Implementada e funcional
 
 ## 🎨 **Interface Django (Sprint 3+)**
