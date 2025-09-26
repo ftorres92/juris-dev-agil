@@ -9,7 +9,8 @@ from typing import List, Tuple
 def normalize_text(value: str) -> str:
     value = unicodedata.normalize('NFKD', value)
     value = ''.join(ch for ch in value if not unicodedata.combining(ch))
-    return value.lower()
+    value = re.sub(r"[^\w]+", " ", value, flags=re.UNICODE)
+    return value.lower().strip()
 
 
 @dataclass(frozen=True)
@@ -21,6 +22,15 @@ class ParsedQuery:
 
 
 _QUOTE_RE = re.compile(r'"([^"]+)"')
+
+# Stopwords PT básicas para evitar matches irrelevantes (ex.: "de", "e", "do")
+STOPWORDS_PT = {
+    'a','à','às','ao','aos','as','o','os','um','uma','uns','umas',
+    'de','da','das','do','dos','d','e','é','em','no','nos','na','nas','num','numa','nuns','numas',
+    'por','para','pra','pro','com','sem','sob','sobre','entre','até','após','antes','contra','desde','trás',
+    'que','se','sua','seu','suas','seus','ela','ele','elas','eles','nosso','nossa','nossos','nossas',
+    'ou','onde','quando','como','qual','quais','mais','menos','muito','muita','muitos','muitas',
+}
 
 
 def parse_query(raw: str) -> ParsedQuery:
@@ -58,11 +68,14 @@ def parse_query(raw: str) -> ParsedQuery:
         use_or = False
         i += 1
 
-    # Normalizar
+    # Normalizar e remover stopwords/termos muito curtos (<=2)
     phrases = tuple(p for p in phrases if p)
-    required = tuple(t for t in required if t)
-    optional = tuple(t for t in optional if t)
-    excluded = tuple(t for t in excluded if t)
+    def keep_token(t: str) -> bool:
+        tn = normalize_text(t)
+        return bool(tn) and (len(tn) > 2) and (tn not in STOPWORDS_PT)
+    required = tuple(t for t in required if keep_token(t))
+    optional = tuple(t for t in optional if keep_token(t))
+    excluded = tuple(t for t in excluded if keep_token(t))
 
     return ParsedQuery(phrases, required, optional, excluded)
 
@@ -109,20 +122,15 @@ def compute_match_and_highlight(text_html: str, query: ParsedQuery) -> tuple[int
     for term in query.optional_terms:
         score += mark_ranges(term, 1)
 
-    # Construir HTML com <mark>. Usamos índices da versão normalizada; para simplicidade,
-    # aplicamos highlight diretamente na string original via busca ingênua (case-insensitive).
-    # Isso cobre a maior parte dos casos práticos.
+    # Construir HTML com <mark>, priorizando frases e evitando destacar dentro de palavras
     all_terms = list(query.phrases) + list(query.required_terms) + list(query.optional_terms)
     highlighted = text_html
     for t in sorted(all_terms, key=len, reverse=True):
         if not t:
             continue
         try:
-            highlighted = re.sub(
-                re.compile(re.escape(t), re.IGNORECASE),
-                lambda m: f"<mark>{m.group(0)}</mark>",
-                highlighted,
-            )
+            pattern = r"(?i)(?<![\w])" + re.escape(t) + r"(?![\w])"
+            highlighted = re.sub(pattern, lambda m: f"<mark>{m.group(0)}</mark>", highlighted)
         except re.error:
             continue
 
