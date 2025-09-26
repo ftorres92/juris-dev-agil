@@ -149,12 +149,16 @@ def buscar_jurisprudencia_por_termo(cleaned_form: Dict[str, Any]) -> Dict[str, A
     if any((query.phrases, query.required_terms, query.optional_terms, query.excluded_terms)):
         scored = []
         for j in julgados:
-            base = (j.get('ementa') or '') + ' ' + (j.get('decisao') or '')
-            score, highlighted = compute_match_and_highlight(base, query)
+            texto_ementa = j.get('ementa') or ''
+            texto_decisao = j.get('decisao') or ''
+            base = f"{texto_ementa} {texto_decisao}".strip()
+            score, _ = compute_match_and_highlight(base, query)
+            # Destacar somente na ementa exibida
+            _, ementa_highlight = compute_match_and_highlight(texto_ementa, query)
             if score > 0 or not (query.required_terms or query.phrases):
                 j_high = dict(j)
-                j_high['ementa'] = highlighted
-                j_high['decisao'] = highlighted
+                j_high['ementa'] = ementa_highlight
+                j_high['decisao'] = None
                 j_high['__score'] = score
                 scored.append(j_high)
         # Ordenar por score e, em empate, por data (mais recente primeiro)
