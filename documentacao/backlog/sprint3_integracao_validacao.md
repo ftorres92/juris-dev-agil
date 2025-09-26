@@ -55,10 +55,10 @@ Garantir que a integração entre frontend Django e backend esteja funcionando p
 - [ ] Testar limites de resultados
 
 #### **V3: Melhoria Interface Consulta**
-- [ ] Aprimorar formulário de busca
+- [x] Aprimorar formulário de busca (tema claro, UX de filtros)
 - [ ] Adicionar validação client-side
 - [ ] Implementar feedback visual (loading, success, error)
-- [ ] Melhorar UX da seleção de tribunais
+- [x] Melhorar UX da seleção de tribunais (lista completa de siglas)
 - [ ] Adicionar preview dos parâmetros
 - [ ] Implementar histórico de buscas
 
@@ -95,7 +95,7 @@ Garantir que a integração entre frontend Django e backend esteja funcionando p
 - [ ] Implementar testes de carga
 
 #### **V8: Documentação**
-- [ ] Documentar APIs internas
+- [x] Documentar integração DJEN e melhorias de busca (este arquivo)
 - [ ] Criar guia de uso da interface
 - [ ] Documentar fluxos de erro
 - [ ] Criar guia de troubleshooting
@@ -197,9 +197,9 @@ Garantir que a integração entre frontend Django e backend esteja funcionando p
 - **Validation**: Estrutura de dados correta
 
 ### **Cenário 2: Busca Complexa**
-- **Input**: Múltiplos termos, vários tribunais, período longo
-- **Expected**: Resultados em < 10 segundos
-- **Validation**: Filtros aplicados corretamente
+- **Input**: Múltiplos termos, vários tribunais, período longo, frases e NOT
+- **Expected**: Resultados em < 10 segundos, relevância respeitando AND/OR/NOT
+- **Validation**: Filtros aplicados corretamente e ranking por relevância
 
 ### **Cenário 3: Rate Limiting**
 - **Input**: Múltiplas buscas simultâneas

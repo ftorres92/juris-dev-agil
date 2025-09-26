@@ -111,3 +111,27 @@ Convergir os avanços técnicos iniciados e garantir que o time mantenha ritmo c
 - Integridade dos dados DJEN deve ser verificada antes dos agentes
 - Performance e tratamento de erros são fundamentais
 - Sprint 4 (agentes) só pode começar após Sprint 3 concluída
+
+---
+
+## ✅ Consolidação Técnica – 24/09
+
+### Entregas de hoje
+- Integração real com DJEN por termo via `DJEN_API_URL` (retry/backoff).
+- Página de busca `/buscar/` e `/djen/consulta/` com template claro e responsivo.
+- Filtro por tribunal respeitado (múltiplos tribunais suportados – STF/STJ/TSE/TST/STM, TRFs, TRTs, TREs, TJs, TJMs).
+- Sanitização de HTML de ementas (bleach) e renderização segura (`|safe`).
+- Remoção de duplicidade de conteúdo (mostra apenas ementa destacada).
+- Busca “semântica” local: parser de consulta (frases, AND/OR/NOT), normalização acento-insensível, stopwords PT, highlight com `<mark>`, ranking por relevância/recência.
+- Correções de bugs (SyntaxError em `views.py`, erro de variável fora de escopo na filtragem, dependência `bleach`).
+
+### Pontos de atenção
+- Proximidade (NEAR/k) ainda não é aplicada no backend remoto; usamos apenas pós-filtragem local.
+- Rate limit do DJEN (60 req/min) – necessidade de cache Redis para produção.
+- Precisamos validar cobertura de testes e performance com dataset real.
+
+### Próximos passos (25/09)
+1. Adicionar paginação/ordenar por data ou score no frontend.
+2. Implementar cache e logs estruturados (preparar V5/V6 da Sprint 3).
+3. Especificar contrato de integração com os agentes (entrada/saída) e pontos de acoplamento.
+4. Criar testes de integração mínimos da rota de busca.
