@@ -151,16 +151,37 @@ def buscar_jurisprudencia_por_termo(cleaned_form: Dict[str, Any]) -> Dict[str, A
         for j in julgados:
             texto_ementa = j.get('ementa') or ''
             texto_decisao = j.get('decisao') or ''
-            base = f"{texto_ementa} {texto_decisao}".strip()
-            score, _ = compute_match_and_highlight(base, query)
-            # Destacar somente na ementa exibida
-            _, ementa_highlight = compute_match_and_highlight(texto_ementa, query)
-            if score > 0 or not (query.required_terms or query.phrases):
-                j_high = dict(j)
-                j_high['ementa'] = ementa_highlight
-                j_high['decisao'] = None
-                j_high['__score'] = score
-                scored.append(j_high)
+            combinado = f"{texto_ementa} {texto_decisao}".strip()
+            combinado_score, _ = compute_match_and_highlight(
+                combinado,
+                query,
+                highlight=False,
+            )
+            if combinado_score == 0:
+                continue
+
+            ementa_score, ementa_highlight = compute_match_and_highlight(
+                texto_ementa,
+                query,
+                weight_multiplier=1.5,
+                enforce_filters=False,
+            )
+            decisao_score, _ = compute_match_and_highlight(
+                texto_decisao,
+                query,
+                enforce_filters=False,
+                highlight=False,
+            )
+
+            total_score = max(combinado_score, ementa_score + decisao_score)
+            if total_score <= 0:
+                continue
+
+            j_high = dict(j)
+            j_high['ementa'] = ementa_highlight
+            j_high['decisao'] = None
+            j_high['__score'] = total_score
+            scored.append(j_high)
         # Ordenar por score e, em empate, por data (mais recente primeiro)
         scored.sort(key=lambda x: (x.get('__score', 0), x.get('dataJulgamento') or ''), reverse=True)
         if scored:
@@ -173,5 +194,4 @@ def buscar_jurisprudencia_por_termo(cleaned_form: Dict[str, Any]) -> Dict[str, A
         "quantidade": len(julgados),
         "julgados": julgados,
     }
-
 
