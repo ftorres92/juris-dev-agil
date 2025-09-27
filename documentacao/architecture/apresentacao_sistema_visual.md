@@ -115,7 +115,7 @@ graph TB
 
 ```mermaid
 graph TD
-    A[👤 Usuário acessa o sistema] --> B[🏠 Dashboard]
+    A[👤 Usuário acessa o sistema] --> B[🏠 Dashboard Django]
     B --> C{🎯 Escolhe tipo de análise}
     
     C -->|Busca Simples| D[🔍 Busca por Termo]
@@ -124,27 +124,160 @@ graph TD
     C -->|Padrões de Vara| G[🏛️ Padrões por Órgão]
     C -->|Estratégia| H[🎯 Estratégia Antecipatória]
     
-    D --> I[✅ DJEN API]
-    E --> J[🔄 Agente Classificador]
-    F --> K[🔄 Agente Neutro]
-    G --> L[🔄 Agente Padrões]
-    H --> M[🔄 Agente Estratégico]
+    %% Fluxo de Busca Simples (IMPLEMENTADO)
+    D --> D1[✅ Formulário Django aprimorado]
+    D1 --> D2[✅ Validação client-side]
+    D2 --> D3[✅ DJENCollector.search]
+    D3 --> D4[✅ Cache Redis 24h]
+    D4 --> D5[✅ Sanitização HTML]
+    D5 --> D6[✅ Normalização de texto]
+    D6 --> D7[✅ Extract de metadados]
+    D7 --> D8[✅ Geração de hash único]
+    D8 --> D9[✅ Resultados em tempo real]
     
-    I --> N[📊 Resultados Imediatos]
-    J --> O[📈 Relatório de Favorabilidade]
-    K --> P[📊 Análise de Tendências]
-    L --> Q[📋 Padrões de Julgamento]
-    M --> R[🎯 Estratégia e Probabilidades]
+    %% Fluxo de Análise por Tese (PLANEJADO)
+    E --> E1[🔄 IMPLEMENTAR: Usuário define tese jurídica]
+    E1 --> E2[🔄 IMPLEMENTAR: Define termos de busca]
+    E2 --> E3[🔄 IMPLEMENTAR: Configura filtros e período]
+    E3 --> E4[🔄 IMPLEMENTAR: Celery Task classificador_tese.run]
+    E4 --> E5[🔄 IMPLEMENTAR: Verifica cache Redis]
+    E5 --> E6{🔄 IMPLEMENTAR: Cache existe?}
+    E6 -->|Sim| E7[🔄 IMPLEMENTAR: Usa dados do cache]
+    E6 -->|Não| E8[✅ CONSULTA DJEN API]
+    E8 --> E9[✅ Rate limiting 60 req/min]
+    E9 --> E10[✅ Backoff exponencial]
+    E10 --> E11[✅ Coleta julgados relevantes]
+    E11 --> E12[✅ Processamento e sanitização]
+    E12 --> E13[🔄 IMPLEMENTAR: Agente IA - Análise de conteúdo]
+    E13 --> E14[🔄 IMPLEMENTAR: LLM Gemini 2.5 - Classificação]
+    E14 --> E15[🔄 IMPLEMENTAR: Ranking de relevância por IA]
+    E15 --> E16[🔄 IMPLEMENTAR: Relatório de Favorabilidade]
     
-    N --> S[💾 Armazenamento]
-    O --> S
-    P --> S
-    Q --> S
-    R --> S
+    %% Fluxo de Análise Neutra (PRÓXIMA FASE)
+    F --> F1[🔄 PRÓXIMA FASE: Usuário define tema jurídico]
+    F1 --> F2[🔄 IMPLEMENTAR: Configura período de análise]
+    F2 --> F3[🔄 IMPLEMENTAR: Celery Task analisador_neutro.run]
+    F3 --> F4[🔄 IMPLEMENTAR: NeutralSearchAgent - Variações]
+    F4 --> F5[🔄 IMPLEMENTAR: Gera variações de busca]
+    F5 --> F6[✅ CONSULTA DJEN API - Múltiplas consultas]
+    F6 --> F7[🔄 IMPLEMENTAR: Agrega e deduplica resultados]
+    F7 --> F8[✅ Processamento e sanitização]
+    F8 --> F9[🔄 IMPLEMENTAR: Agente IA - Análise de conteúdo]
+    F9 --> F10[🔄 IMPLEMENTAR: LLM - Análise pró/contra/neutro]
+    F10 --> F11[🔄 IMPLEMENTAR: Ranking de relevância por IA]
+    F11 --> F12[🔄 IMPLEMENTAR: Relatório de Tendências]
     
-    S --> T[📱 Dashboard com Métricas]
-    S --> U[📄 Exportação de Relatórios]
-    S --> V[🔔 Notificações em Tempo Real]
+    %% Fluxo de Padrões de Vara (PLANEJADO)
+    G --> G1[🔄 IMPLEMENTAR: Seleciona tribunal/vara]
+    G1 --> G2[🔄 IMPLEMENTAR: Define tema jurídico]
+    G2 --> G3[🔄 IMPLEMENTAR: Configura período]
+    G3 --> G4[🔄 IMPLEMENTAR: Celery Task analisador_vara.run]
+    G4 --> G5[✅ CONSULTA DJEN API - Coleta julgados históricos]
+    G5 --> G6[✅ Processamento e sanitização]
+    G6 --> G7[🔄 IMPLEMENTAR: Agente IA - Análise de conteúdo]
+    G7 --> G8[🔄 IMPLEMENTAR: LLM - Padrões qualitativos]
+    G8 --> G9[🔄 IMPLEMENTAR: Ranking de relevância por IA]
+    G9 --> G10[🔄 IMPLEMENTAR: Relatório de Padrões]
+    
+    %% Fluxo de Estratégia Antecipatória (PLANEJADO)
+    H --> H1[🔄 IMPLEMENTAR: Informa número do processo]
+    H1 --> H2[🔄 IMPLEMENTAR: Define tribunal/vara de destino]
+    H2 --> H3[🔄 IMPLEMENTAR: Upload de documentos do caso]
+    H3 --> H4[🔄 IMPLEMENTAR: Celery Task estrategico_antecipatorio.run]
+    H4 --> H5[🔄 IMPLEMENTAR: Busca PadroesVaraTribunal]
+    H5 --> H6{🔄 IMPLEMENTAR: Padrão existe?}
+    H6 -->|Não| H7[🔄 IMPLEMENTAR: Dispara analisador_vara.run]
+    H6 -->|Sim| H8[🔄 IMPLEMENTAR: Agente IA - Análise de conteúdo]
+    H7 --> H8
+    H8 --> H9[🔄 IMPLEMENTAR: LLM - Extrai fatores do caso]
+    H9 --> H10[🔄 IMPLEMENTAR: Ranking de relevância por IA]
+    H10 --> H11[🔄 IMPLEMENTAR: Relatório Estratégico]
+    
+    %% Integração com DJEN (IMPLEMENTADO) - FONTE DE DADOS
+    E8 --> DJEN[DJEN API]
+    F6 --> DJEN
+    G5 --> DJEN
+    D3 --> DJEN
+    
+    DJEN --> DJEN1[✅ Validação de conectividade]
+    DJEN1 --> DJEN2[✅ Rate limiting 60 req/min]
+    DJEN2 --> DJEN3[✅ Cache Redis TTL 24h]
+    DJEN3 --> DJEN4[✅ Backoff exponencial]
+    DJEN4 --> DJEN5[✅ Retry até 3 vezes]
+    DJEN5 --> DJEN6[✅ Retorna julgados padronizados]
+    
+    %% Processamento de Dados (IMPLEMENTADO)
+    DJEN6 --> PROC1[✅ Sanitização HTML - html_sanitizer]
+    PROC1 --> PROC2[✅ Normalização - search_query]
+    PROC2 --> PROC3[✅ Extract de metadados]
+    PROC3 --> PROC4[✅ Geração de hash SHA256]
+    PROC4 --> PROC5[✅ Validação de integridade]
+    PROC5 --> PROC6[✅ Armazenamento no banco]
+    
+    %% Agentes de IA (STATUS ATUAL)
+    PROC6 --> AGENT1[🔄 NeutralSearchAgent - PRÓXIMA FASE]
+    PROC6 --> AGENT2[🔄 AgenteClassificadorTese - PLANEJADO]
+    PROC6 --> AGENT3[🔄 AgenteAnalisadorVara - PLANEJADO]
+    PROC6 --> AGENT4[🔄 AgenteEstrategicoAntecipatorio - PLANEJADO]
+    
+    %% Context Manager e LLM (PLANEJADO)
+    AGENT1 --> CTX1[🔄 IMPLEMENTAR: ContextManager - 12k tokens]
+    AGENT2 --> CTX1
+    AGENT3 --> CTX1
+    AGENT4 --> CTX1
+    
+    CTX1 --> LLM1[🔄 IMPLEMENTAR: Gemini 2.5 Primary]
+    LLM1 --> LLM2{🔄 IMPLEMENTAR: Timeout > 20s?}
+    LLM2 -->|Sim| LLM3[🔄 IMPLEMENTAR: GPT-4 Fallback]
+    LLM2 -->|Não| LLM4[🔄 IMPLEMENTAR: Processa resultado]
+    LLM3 --> LLM4
+    
+    %% Validação e Qualidade (PARCIALMENTE IMPLEMENTADO)
+    LLM4 --> VAL1[✅ Validação de integridade - data_integrity]
+    VAL1 --> VAL2[✅ Verificação de duplicatas]
+    VAL2 --> VAL3[🔄 IMPLEMENTAR: Validação de scores 0-100]
+    VAL3 --> VAL4[🔄 IMPLEMENTAR: Controle de qualidade]
+    VAL4 --> VAL5[🔄 IMPLEMENTAR: Logs estruturados JSON]
+    VAL5 --> RESULT[✅ Resultados finais]
+    
+    %% Armazenamento (MODELOS CRIADOS)
+    RESULT --> DB[(✅ Banco de Dados)]
+    DB --> DB1[✅ Julgado - Base]
+    DB --> DB2[✅ AnaliseJurisprudenciaTese - Modelo criado]
+    DB --> DB3[✅ AnaliseJurisprudenciaNeutra - Modelo criado]
+    DB --> DB4[✅ PadroesVaraTribunal - Modelo criado]
+    DB --> DB5[✅ EstrategiaAntecipatoria - Modelo criado]
+    DB --> DB6[✅ JulgadoFavoravel - Modelo criado]
+    
+    %% Eventos e Notificações (PLANEJADO)
+    DB2 --> EVT1[🔄 IMPLEMENTAR: Evento: juris.analise_tese.ready]
+    DB3 --> EVT2[🔄 IMPLEMENTAR: Evento: analisador_neutro.completed]
+    DB4 --> EVT3[🔄 IMPLEMENTAR: Evento: padrao_vara.updated]
+    DB5 --> EVT4[🔄 IMPLEMENTAR: Evento: estrategia_antecipatoria.completed]
+    
+    %% Relatórios e Visualizações (PLANEJADO)
+    EVT1 --> REP1[🔄 IMPLEMENTAR: Dashboard - Métricas]
+    EVT2 --> REP2[🔄 IMPLEMENTAR: Gráficos Chart.js]
+    EVT3 --> REP3[🔄 IMPLEMENTAR: Exportação PDF/DOCX]
+    EVT4 --> REP4[🔄 IMPLEMENTAR: WebSocket - Tempo Real]
+    
+    %% Monitoramento e Observabilidade (PLANEJADO)
+    REP1 --> MON1[🔄 IMPLEMENTAR: Logs estruturados - juris.agentes]
+    MON1 --> MON2[🔄 IMPLEMENTAR: Métricas Prometheus]
+    MON2 --> MON3[🔄 IMPLEMENTAR: Health Checks]
+    MON3 --> MON4[🔄 IMPLEMENTAR: Alertas Slack/Email]
+    
+    %% Feedback e Aprendizado (PLANEJADO)
+    REP1 --> FEED1[🔄 IMPLEMENTAR: Usuário avalia resultados]
+    REP2 --> FEED1
+    REP3 --> FEED1
+    REP4 --> FEED1
+    
+    FEED1 --> ML1[🔄 IMPLEMENTAR: Dataset rotulado para validação]
+    ML1 --> ML2[🔄 IMPLEMENTAR: Atualização de modelos]
+    ML2 --> ML3[🔄 IMPLEMENTAR: Melhoria de algoritmos]
+    ML3 --> ML4[🔄 IMPLEMENTAR: Otimização de buscas]
+    ML4 --> AGENT1
 ```
 
 ---
