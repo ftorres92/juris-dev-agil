@@ -40,46 +40,56 @@ graph TD
     D4 --> D5[🔄 IMPLEMENTAR: Verifica cache Redis]
     D5 --> D6{🔄 IMPLEMENTAR: Cache existe?}
     D6 -->|Sim| D7[🔄 IMPLEMENTAR: Usa dados do cache]
-    D6 -->|Não| D8[✅ Integração com DJEN API]
+    D6 -->|Não| D8[✅ CONSULTA DJEN API]
     D8 --> D9[✅ Rate limiting 60 req/min]
     D9 --> D10[✅ Backoff exponencial]
     D10 --> D11[✅ Coleta julgados relevantes]
-    D11 --> D12[🔄 IMPLEMENTAR: ContextManager - Chunking ≤6k tokens]
-    D12 --> D13[🔄 IMPLEMENTAR: LLM Gemini 2.5 - Classificação]
-    D13 --> D14[🔄 IMPLEMENTAR: Fallback GPT-4 se necessário]
-    D14 --> D15[🔄 IMPLEMENTAR: Persiste em JulgadoFavoravel]
-    D15 --> D16[🔄 IMPLEMENTAR: Atualiza AnaliseJurisprudenciaTese]
-    D16 --> D17[🔄 IMPLEMENTAR: Evento: juris.analise_tese.ready]
-    D17 --> D18[🔄 IMPLEMENTAR: Relatório de Favorabilidade]
+    D11 --> D12[✅ Processamento e sanitização]
+    D12 --> D13[🔄 IMPLEMENTAR: Agente IA - Análise de conteúdo]
+    D13 --> D14[🔄 IMPLEMENTAR: ContextManager - Chunking ≤6k tokens]
+    D14 --> D15[🔄 IMPLEMENTAR: LLM Gemini 2.5 - Classificação]
+    D15 --> D16[🔄 IMPLEMENTAR: Fallback GPT-4 se necessário]
+    D16 --> D17[🔄 IMPLEMENTAR: Ranking de relevância por IA]
+    D17 --> D18[🔄 IMPLEMENTAR: Persiste em JulgadoFavoravel]
+    D18 --> D19[🔄 IMPLEMENTAR: Atualiza AnaliseJurisprudenciaTese]
+    D19 --> D20[🔄 IMPLEMENTAR: Evento: juris.analise_tese.ready]
+    D20 --> D21[🔄 IMPLEMENTAR: Relatório de Favorabilidade]
     
     %% Fluxo de Análise Neutra (PRÓXIMA FASE - Sprint 3)
     E --> E1[Usuário define tema jurídico]
     E1 --> E2[Configura período de análise]
     E2 --> E3[🔄 PRÓXIMA FASE: Celery Task analisador_neutro.run]
-    E3 --> E4[✅ NeutralSearchAgent - Variações]
-    E4 --> E5[✅ Gera variações de busca]
-    E5 --> E6[✅ Executa múltiplas consultas DJEN]
-    E6 --> E7[✅ Agrega e deduplica resultados]
-    E7 --> E8[🔄 IMPLEMENTAR: Clusterização TF-IDF + KMeans]
-    E8 --> E9[🔄 IMPLEMENTAR: LLM - Análise pró/contra/neutro]
-    E9 --> E10[🔄 IMPLEMENTAR: Identifica tendência majoritária]
-    E10 --> E11[🔄 IMPLEMENTAR: Persiste em AnaliseJurisprudenciaNeutra]
-    E11 --> E12[🔄 IMPLEMENTAR: Evento: analisador_neutro.completed]
-    E12 --> E13[🔄 IMPLEMENTAR: Relatório de Tendências]
+    E3 --> E4[🔄 IMPLEMENTAR: NeutralSearchAgent - Variações]
+    E4 --> E5[🔄 IMPLEMENTAR: Gera variações de busca]
+    E5 --> E6[✅ CONSULTA DJEN API - Múltiplas consultas]
+    E6 --> E7[🔄 IMPLEMENTAR: Agrega e deduplica resultados]
+    E7 --> E8[✅ Processamento e sanitização]
+    E8 --> E9[🔄 IMPLEMENTAR: Agente IA - Análise de conteúdo]
+    E9 --> E10[🔄 IMPLEMENTAR: Clusterização TF-IDF + KMeans]
+    E10 --> E11[🔄 IMPLEMENTAR: LLM - Análise pró/contra/neutro]
+    E11 --> E12[🔄 IMPLEMENTAR: Ranking de relevância por IA]
+    E12 --> E13[🔄 IMPLEMENTAR: Identifica tendência majoritária]
+    E13 --> E14[🔄 IMPLEMENTAR: Persiste em AnaliseJurisprudenciaNeutra]
+    E14 --> E15[🔄 IMPLEMENTAR: Evento: analisador_neutro.completed]
+    E15 --> E16[🔄 IMPLEMENTAR: Relatório de Tendências]
     
     %% Fluxo de Padrões de Vara (PLANEJADO - Sprint 3+)
     F --> F1[Seleciona tribunal/vara]
     F1 --> F2[Define tema jurídico]
     F2 --> F3[Configura período]
     F3 --> F4[🔄 IMPLEMENTAR: Celery Task analisador_vara.run]
-    F4 --> F5[✅ Coleta julgados históricos]
-    F5 --> F6[🔄 IMPLEMENTAR: Extrai features estruturais]
-    F6 --> F7[🔄 IMPLEMENTAR: Estatísticas descritivas]
-    F7 --> F8[🔄 IMPLEMENTAR: LLM - Padrões qualitativos]
-    F8 --> F9[🔄 IMPLEMENTAR: Compara com outros órgãos]
-    F9 --> F10[🔄 IMPLEMENTAR: Persiste em PadroesVaraTribunal]
-    F10 --> F11[🔄 IMPLEMENTAR: Evento: padrao_vara.updated]
-    F11 --> F12[🔄 IMPLEMENTAR: Relatório de Padrões]
+    F4 --> F5[✅ CONSULTA DJEN API - Coleta julgados históricos]
+    F5 --> F6[✅ Processamento e sanitização]
+    F6 --> F7[🔄 IMPLEMENTAR: Agente IA - Análise de conteúdo]
+    F7 --> F8[🔄 IMPLEMENTAR: Extrai features estruturais]
+    F8 --> F9[🔄 IMPLEMENTAR: Estatísticas descritivas]
+    F9 --> F10[🔄 IMPLEMENTAR: LLM - Padrões qualitativos]
+    F10 --> F11[🔄 IMPLEMENTAR: Fallback GPT-4 se necessário]
+    F11 --> F12[🔄 IMPLEMENTAR: Ranking de relevância por IA]
+    F12 --> F13[🔄 IMPLEMENTAR: Compara com outros órgãos]
+    F13 --> F14[🔄 IMPLEMENTAR: Persiste em PadroesVaraTribunal]
+    F14 --> F15[🔄 IMPLEMENTAR: Evento: padrao_vara.updated]
+    F15 --> F16[🔄 IMPLEMENTAR: Relatório de Padrões]
     
     %% Fluxo de Estratégia Antecipatória (PLANEJADO - Sprint 3+)
     G --> G1[Informa número do processo]
@@ -89,16 +99,19 @@ graph TD
     G4 --> G5[🔄 IMPLEMENTAR: Busca PadroesVaraTribunal]
     G5 --> G6{🔄 IMPLEMENTAR: Padrão existe?}
     G6 -->|Não| G7[🔄 IMPLEMENTAR: Dispara analisador_vara.run]
-    G6 -->|Sim| G8[🔄 IMPLEMENTAR: LLM - Extrai fatores do caso]
+    G6 -->|Sim| G8[🔄 IMPLEMENTAR: Agente IA - Análise de conteúdo]
     G7 --> G8
-    G8 --> G9[🔄 IMPLEMENTAR: Regressão logística + heurísticas]
-    G9 --> G10[🔄 IMPLEMENTAR: Calcula probabilidade de sucesso]
-    G10 --> G11[🔄 IMPLEMENTAR: Identifica riscos específicos]
-    G11 --> G12[🔄 IMPLEMENTAR: Gera estratégias de mitigação]
-    G12 --> G13[🔄 IMPLEMENTAR: Recomenda argumentos direcionados]
-    G13 --> G14[🔄 IMPLEMENTAR: Persiste em EstrategiaAntecipatoria]
-    G14 --> G15[🔄 IMPLEMENTAR: Evento: estrategia_antecipatoria.completed]
-    G15 --> G16[🔄 IMPLEMENTAR: Relatório Estratégico]
+    G8 --> G9[🔄 IMPLEMENTAR: LLM - Extrai fatores do caso]
+    G9 --> G10[🔄 IMPLEMENTAR: Fallback GPT-4 se necessário]
+    G10 --> G11[🔄 IMPLEMENTAR: Regressão logística + heurísticas]
+    G11 --> G12[🔄 IMPLEMENTAR: Ranking de relevância por IA]
+    G12 --> G13[🔄 IMPLEMENTAR: Calcula probabilidade de sucesso]
+    G13 --> G14[🔄 IMPLEMENTAR: Identifica riscos específicos]
+    G14 --> G15[🔄 IMPLEMENTAR: Gera estratégias de mitigação]
+    G15 --> G16[🔄 IMPLEMENTAR: Recomenda argumentos direcionados]
+    G16 --> G17[🔄 IMPLEMENTAR: Persiste em EstrategiaAntecipatoria]
+    G17 --> G18[🔄 IMPLEMENTAR: Evento: estrategia_antecipatoria.completed]
+    G18 --> G19[🔄 IMPLEMENTAR: Relatório Estratégico]
     
     %% Fluxo de Busca Simples (IMPLEMENTADO - Sprint 2)
     H --> H1[✅ Formulário Django aprimorado]
@@ -111,7 +124,7 @@ graph TD
     H7 --> H8[✅ Geração de hash único]
     H8 --> H9[✅ Resultados em tempo real]
     
-    %% Integração com DJEN (IMPLEMENTADO)
+    %% Integração com DJEN (IMPLEMENTADO) - FONTE DE DADOS
     D8 --> DJEN[DJEN API]
     E6 --> DJEN
     F5 --> DJEN
@@ -132,8 +145,8 @@ graph TD
     PROC4 --> PROC5[✅ Validação de integridade]
     PROC5 --> PROC6[✅ Armazenamento no banco]
     
-    %% Agentes de IA (STATUS ATUAL)
-    PROC6 --> AGENT1[✅ NeutralSearchAgent - IMPLEMENTADO]
+    %% Agentes de IA (STATUS ATUAL) - PROCESSAM DADOS DO DJEN
+    PROC6 --> AGENT1[🔄 NeutralSearchAgent - PRÓXIMA FASE]
     PROC6 --> AGENT2[🔄 AgenteClassificadorTese - PLANEJADO]
     PROC6 --> AGENT3[🔄 AgenteAnalisadorVara - PLANEJADO]
     PROC6 --> AGENT4[🔄 AgenteEstrategicoAntecipatorio - PLANEJADO]
@@ -253,9 +266,12 @@ graph TD
 1. **Celery Tasks**: Jobs enfileirados em filas dedicadas
 2. **Cache Redis**: Verificação de dados existentes
 3. **Consulta DJEN**: Rate limiting e backoff exponencial
-4. **ContextManager**: Chunking e gestão de tokens
-5. **LLM Processing**: Gemini 2.5 com fallback GPT-4
-6. **Persistência**: Transações atômicas no Django ORM
+4. **Processamento de Dados**: Sanitização e normalização
+5. **Agentes de IA**: Análise e classificação de conteúdo
+6. **ContextManager**: Chunking e gestão de tokens
+7. **LLM Processing**: Gemini 2.5 com fallback GPT-4
+8. **Ranking de Relevância**: Ordenação inteligente por IA
+9. **Persistência**: Transações atômicas no Django ORM
 
 ### **Saída e Eventos**
 1. **Eventos Pub/Sub**: `juris.analise_tese.ready`, `analisador_neutro.completed`
@@ -319,9 +335,9 @@ graph TD
 - ✅ Integração DJEN API funcionando
 - ✅ Frontend Django com Bootstrap 5
 - ✅ Busca por termos implementada
-- ✅ NeutralSearchAgent funcional
 - ✅ Modelos Django criados
 - ✅ Cache Redis e rate limiting
+- ✅ Validação de dados e tratamento de erros
 
 ### **Sprint 3 - Em Andamento (Próxima Fase)**
 - 🔄 **PRÓXIMA FASE**: Implementação do Agente Neutro
