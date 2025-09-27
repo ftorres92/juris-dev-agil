@@ -18,3 +18,8 @@ requests==2.31.0
 python-decouple==3.8
 python-dotenv==1.0.0
 bleach==6.1.0
+
+# DJEN Client dependencies
+httpx==0.25.2  # Para requisições assíncronas (opcional)
+tenacity==8.2.3  # Para retry com backoff exponencial
+
