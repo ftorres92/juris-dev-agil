@@ -201,15 +201,42 @@ Responda em JSON.
 
 ## 6. Interfaces e Contratos
 
-### 6.1 API REST (a ser implementada)
+### 6.1 Interface Django (Sprint 3+)
+
+**Arquitetura Frontend Django:**
+- **Django Templates** com sistema nativo
+- **Bootstrap 5** para design responsivo
+- **Chart.js** para visualização de dados
+- **HTMX** para interatividade
+- **Django REST Framework** para APIs
+
+**Páginas Principais:**
+- `Dashboard`: Visão geral das análises e métricas
+- `ConsultaJurisprudencia`: Interface de busca aprimorada
+- `ResultadosAnalise`: Visualização de resultados dos agentes
+- `GraficosEstatisticos`: Charts e métricas interativas
+- `ExportacaoRelatorios`: Geração e download de relatórios
+
+**Melhorias Django:**
+- Templates responsivos com Bootstrap
+- Componentes reutilizáveis (base templates)
+- API REST para integrações futuras
+- WebSocket com Django Channels
+
+### 6.2 API REST (a ser implementada)
 
 | Endpoint | Método | Descrição | Agente | Payload Principal |
 | --- | --- | --- | --- | --- |
+| `/api/jurisprudencia/buscar/` | GET | Busca jurisprudência por termo | - | Query params |
+| `/api/jurisprudencia/processo/<numero>/` | GET | Busca por processo específico | - | Path param |
+| `/api/jurisprudencia/tribunal/<sigla>/` | GET | Busca por tribunal | - | Path param |
+| `/api/jurisprudencia/analise/solicitar_analise/` | POST | Solicita análise pelos agentes | Todos | `AnaliseJurisprudenciaRequest` |
+| `/api/jurisprudencia/analise/{id}/status/` | GET | Consulta status da análise | Todos | `analise_id` |
+| `/api/jurisprudencia/analise/{id}/resultados/` | GET | Obtém resultados da análise | Todos | `analise_id` |
 | `/api/juris/tese/analises/` | POST | Cria nova análise favorável à tese | Classificador | `AnaliseJurisprudenciaTeseRequest` |
 | `/api/juris/neutro/analises/` | POST | Solicita análise neutra | Analisador Neutro | `AnaliseNeutraRequest` |
 | `/api/juris/vara/padroes/` | POST | Solicita mapeamento de padrões | Analisador Vara | `PadraoVaraRequest` |
 | `/api/juris/estrategias/` | POST | Solicita estratégia antecipatória | Estratégico | `EstrategiaRequest` |
-| `/api/juris/jobs/{id}/status/` | GET | Consulta status da tarefa | Todos | `job_id` |
 
 ### 6.2 Contratos de Evento (Message Bus)
 
