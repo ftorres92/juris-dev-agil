@@ -4,7 +4,7 @@
 
 ### ✅ **Issues Criadas e Adicionadas ao Projeto**
 
-#### **Novas Issues Criadas (9 issues):**
+#### **Novas Issues Criadas (10 issues):**
 - **#50** - D0: Implementar Página Inicial do Sistema 🔥
 - **#51** - A1: Implementar AgenteClassificadorTese 🔥
 - **#52** - A2: Implementar AgenteAnalisadorNeutro 🔥
@@ -14,6 +14,7 @@
 - **#56** - D7: Implementar Views Django para Análise 🔥
 - **#57** - D8: Implementar Templates Responsivos ⚡
 - **#58** - D9: Implementar Exportação de Relatórios 📊
+- **#61** - 🧪 PoC: Comparação GAIA vs Gemini para Agentes Jurídicos 🔥
 
 #### **Issues Existentes Adicionadas (5 issues):**
 - **#45** - D1: Aprimorar templates Django com Bootstrap 5
@@ -49,7 +50,7 @@
 
 ## 🎯 **Priorização Recomendada**
 
-### **🔥 Alta Prioridade (8 issues):**
+### **🔥 Alta Prioridade (9 issues):**
 1. **D0** - Página Inicial do Sistema (6 SP)
 2. **A1** - AgenteClassificadorTese (8 SP)
 3. **A2** - AgenteAnalisadorNeutro (8 SP)
@@ -57,6 +58,7 @@
 5. **D2** - Dashboard Django com Métricas (8 SP)
 6. **D6** - Views Django para Busca (5 SP)
 7. **D7** - Views Django para Análise (6 SP)
+8. **#61** - 🧪 PoC: Comparação GAIA vs Gemini (8 SP)
 
 ### **⚡ Média Prioridade (4 issues):**
 8. **A3** - AgenteAnalisadorVara (6 SP)
@@ -72,17 +74,17 @@
 ## 📈 **Métricas Finais**
 
 ### **Total de Issues:**
-- **Total**: 22 issues
+- **Total**: 23 issues
 - **Sprint 3**: 8 issues (✅ Concluídas)
-- **Sprint 4**: 14 issues (⏳ Pendentes)
+- **Sprint 4**: 15 issues (⏳ Pendentes)
 
 ### **Estimativas:**
 - **Sprint 3**: ✅ **CONCLUÍDA**
-- **Sprint 4**: 89 SP (14 issues)
-- **Total**: 89 SP para Sprint 4
+- **Sprint 4**: 97 SP (15 issues)
+- **Total**: 97 SP para Sprint 4
 
 ### **Distribuição por Prioridade:**
-- **🔥 Alta**: 8 issues (59 SP)
+- **🔥 Alta**: 9 issues (67 SP)
 - **⚡ Média**: 4 issues (21 SP)
 - **📊 Baixa**: 2 issues (9 SP)
 
@@ -121,8 +123,8 @@ gh project item-add --owner ftorres92 8 --url https://github.com/ftorres92/juris
 ## 🎉 **Resultado Final**
 
 ### ✅ **Issues Organizadas:**
-- **14 issues** adicionadas ao GitHub Projects
-- **9 issues novas** criadas
+- **15 issues** adicionadas ao GitHub Projects
+- **10 issues novas** criadas
 - **5 issues existentes** organizadas
 - **Priorização clara** definida
 - **Sprint 4** estruturada
@@ -139,3 +141,5 @@ gh project item-add --owner ftorres92 8 --url https://github.com/ftorres92/juris
 **Data**: 26/09/2024  
 **Status**: ✅ **ORGANIZAÇÃO CONCLUÍDA**  
 **Projeto**: GitHub Projects - "Agentes Jurisprudência - Backlog Completo"
+
+
